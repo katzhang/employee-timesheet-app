@@ -7,8 +7,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
     timesheetBbApp.Models.JobsModel = Backbone.Model.extend({
 
-        url: '',
-
         initialize: function() {
         },
 

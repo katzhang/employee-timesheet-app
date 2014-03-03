@@ -10,9 +10,18 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         url: '',
 
         initialize: function() {
+            this.jobs = new timesheetBbApp.Collections.JobsCollection;
         },
 
         defaults: {
+        },
+
+        addJob: function(job) {
+            this.jobs.add(job);
+        },
+
+        removeJob: function(job) {
+            this.jobs = this.jobs.remove(job);
         },
 
         validate: function(attrs, options) {
