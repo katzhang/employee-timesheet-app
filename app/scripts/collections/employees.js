@@ -7,7 +7,20 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
     timesheetBbApp.Collections.EmployeesCollection = Backbone.Collection.extend({
 
-        model: timesheetBbApp.Models.EmployeesModel
+        model: timesheetBbApp.Models.EmployeesModel,
+
+        // sync: function(method, model, options) {
+        // 	console.log('EmployeesCollection synced');
+        //     if (method === "read") {
+        //         timesheetBbApp.store.findByName(options.data.name, function (data) {
+        //             options.success(data);
+        //         });
+        //     }
+        // },
+
+        error: function() {
+        	console.log('EmployeesCollection sync failed');
+        }
 
     });
 

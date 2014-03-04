@@ -24,6 +24,14 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             this.jobs = this.jobs.remove(job);
         },
 
+        // sync: function(method, model, options) {
+        //     if (method === "read") {
+        //         timesheetBbApp.store.findByName(options.data.name, function (data) {
+        //             options.success(data);
+        //         });
+        //     }
+        // },
+
         validate: function(attrs, options) {
         },
 
