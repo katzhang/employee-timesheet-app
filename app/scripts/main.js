@@ -32,11 +32,11 @@ window.timesheetBbApp = {
         }
 
         this.employees = [
-            {id: 1, firstName: "Ann", lastName : "King"},
-            {id: 2, firstName: "Ben", lastName : "White"},
-            {id: 3, firstName: "Chris", lastName : "Smith"},
-            {id: 4, firstName: "Damon", lastName : "Albarn"},
-            {id: 5, firstName: "Emma", lastName : "Woods"}
+            {id: 1, firstName: "Ann", lastName : "King", jobs: []},
+            {id: 2, firstName: "Ben", lastName : "White", jobs: []},
+            {id: 3, firstName: "Chris", lastName : "Smith", jobs: []},
+            {id: 4, firstName: "Damon", lastName : "Albarn", jobs: []},
+            {id: 5, firstName: "Emma", lastName : "Woods", jobs: []}
 
         ]
 

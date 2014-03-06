@@ -7,7 +7,9 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
     timesheetBbApp.Collections.JobsCollection = Backbone.Collection.extend({
 
-        model: timesheetBbApp.Models.JobsModel
+        model: timesheetBbApp.Models.JobsModel,
+
+        localStorage: new Backbone.LocalStorage("JobsCollection")
 
     });
 

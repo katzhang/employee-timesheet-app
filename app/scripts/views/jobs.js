@@ -5,10 +5,81 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 (function () {
     'use strict';
 
-    timesheetBbApp.Views.JobsView = Backbone.View.extend({
+    timesheetBbApp.Views.JobsListView = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/jobs.ejs']
+        tagName: 'ul',
 
+        className: 'jobs-list',
+
+        initialize: function() {
+        	var self = this;
+        	this.model.on("reset", this.render, this);
+        },
+
+        render: function () {
+        	_.each(this.model.models, function (job) {
+        		this.$el.append(new timesheetBbApp.Views.JobsListItemView({model: job}).render().el);
+        	}, this);
+        	return this;
+        }
+    });
+
+    timesheetBbApp.Views.JobsListItemView = Backbone.View.extend({
+
+        template: JST['app/scripts/templates/jobs-item.ejs'],
+
+        tagName: 'li',
+
+        render: function () {
+        	var data = this.model.attributes;
+        	this.$el.html(this.template(data));
+        	return this;
+        }
+
+    });
+
+    timesheetBbApp.Views.JobSearchView = Backbone.View.extend({
+
+    	template: JST['app/scripts/templates/jobs-search.ejs'],
+
+	    initialize: function () {
+	        this.searchResults = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
+	        this.searchresultsView = new timesheetBbApp.Views.JobsListView({model: this.searchResults, className: 'dropdown-menu'});
+	    },
+
+	    render: function () {
+	        this.$el.html(this.template());
+	        $('.navbar-search', this.el).append(this.searchresultsView.render().el);
+	        return this;
+	    },
+
+	    events: {
+	        "keyup .search-query": "search",
+	        "keypress .search-query": "onkeypress"
+	    },
+
+	    search: function (event) {
+	        var key = $('#searchText').val();
+	        console.log(key);
+	        this.searchResults.fetch({reset: true, data: {name: key}});
+	        var self = this;
+	        setTimeout(function () {
+	            $('.dropdown').addClass('open');
+	        });
+	    },
+
+	    onkeypress: function (event) {
+	        if (event.keyCode === 13) { // enter key pressed
+	            event.preventDefault();
+	        }
+	    },
+
+	    selectMenuItem: function(menuItem) {
+	        $('.navbar .nav li').removeClass('active');
+	        if (menuItem) {
+	            $('.' + menuItem).addClass('active');
+	        }
+	    }
     });
 
 })();

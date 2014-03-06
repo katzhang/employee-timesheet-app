@@ -21,14 +21,29 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
     timesheetBbApp.Views.EmployeesListItemView = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/employees.ejs'],
+        template: JST['app/scripts/templates/employees-item.ejs'],
 
         tagName: 'li',
+
+        events: {
+        	'click a span.list-item': 	'getEmployeeJobs',
+        	'click a': 	'getJobsMenu'
+        },
 
         render: function () {
         	var data = this.model.attributes;
         	this.$el.html(this.template(data));
         	return this;
+        },
+
+        getEmployeeJobs: function() {
+        	console.log(this.model.attributes);
+        },
+
+        getJobsMenu: function() {
+        	console.log('get jobs');
+        	var jobSearchView = new timesheetBbApp.Views.JobSearchView();
+        	$('#jobs').append(jobSearchView.render().el);
         }
 
     });

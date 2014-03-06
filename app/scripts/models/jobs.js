@@ -18,6 +18,14 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         parse: function(response, options)  {
             return response;
+        },
+
+        sync: function(method, model, options) {
+            if (method === "read") {
+                directory.store.findByName(options.data.name, function (data) {
+                    options.success(data);
+                });
+            }
         }
     });
 
