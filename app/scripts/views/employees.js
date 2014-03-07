@@ -43,7 +43,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         getJobsMenu: function() {
         	console.log('get jobs');
         	var jobSearchView = new timesheetBbApp.Views.JobSearchView();
-        	$('#jobs').append(jobSearchView.render().el);
+        	$('#jobs').html(jobSearchView.render().el);
         }
 
     });

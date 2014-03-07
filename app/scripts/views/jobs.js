@@ -14,6 +14,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         initialize: function() {
         	var self = this;
         	this.model.on("reset", this.render, this);
+	        this.model.on("add", function (employee) {
+	            self.$el.append(new timesheetBbApp.Views.JobsListView({model:employee}).render().el);
+	        });
         },
 
         render: function () {
@@ -29,6 +32,11 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         template: JST['app/scripts/templates/jobs-item.ejs'],
 
         tagName: 'li',
+
+	    initialize:function () {
+	        this.model.on("change", this.render, this);
+	        this.model.on("destroy", this.close, this);
+	    },
 
         render: function () {
         	var data = this.model.attributes;
@@ -59,6 +67,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 	    },
 
 	    search: function (event) {
+	    	$('.dropdown-menu').html('');
 	        var key = $('#searchText').val();
 	        console.log(key);
 	        this.searchResults.fetch({reset: true, data: {name: key}});

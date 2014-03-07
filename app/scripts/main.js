@@ -19,8 +19,10 @@ window.timesheetBbApp = {
         this.findJobName = function (searchKey, callback) {
             var jobs = this.jobs.filter(function (element) {
                 var jobName = element.name;
-                return jobName.toLowerCase().indexOf(searchKey,toLowerCase() > -1);
+                console.log(jobName);
+                return jobName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
             });
+            callLater(callback, jobs);
         }
 
         var callLater = function (callback, data) {
@@ -41,10 +43,10 @@ window.timesheetBbApp = {
         ]
 
         this.jobs = [
-            {"id": 1, "name": "Awesome Consumer Website"},
-            {"id": 2, "name": "Magnificent Banners"},
-            {"id": 3, "name": "Splendid HTML Emails"},
-            {"id": 4, "name": "Beautiful iPad App"}
+            {id: 1, name: "Awesome Consumer Website"},
+            {id: 2, name: "Magnificent Banners"},
+            {id: 3, name: "Splendid HTML Emails"},
+            {id: 4, name: "Beautiful iPad App"}
         ]
 
         callLater(successCallback);
