@@ -31,9 +31,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         template: JST['app/scripts/templates/jobs-item.ejs'],
 
-        tagName: 'button',
-
-        className: 'btn',
+        tagName: 'li',
 
 	    initialize:function () {
 	        this.model.on("change", this.render, this);
