@@ -7,9 +7,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
     timesheetBbApp.Views.EmployeesListView = Backbone.View.extend({
 
-        tagName: 'ul',
+        tagName: 'div',
 
-        className: 'employees-list',
+        className: 'employees-list btn-group-vertical',
 
         render: function () {
         	_.each(this.model.models, function (employee) {
@@ -23,7 +23,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         template: JST['app/scripts/templates/employees-item.ejs'],
 
-        tagName: 'li',
+        tagName: 'button',
+
+        className: 'btn btn-default',
 
         events: {
         	'click a span.list-item': 	'getEmployeeJobs',
