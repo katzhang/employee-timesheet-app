@@ -34,11 +34,11 @@ window.timesheetBbApp = {
         }
 
         this.employees = [
-            {id: 1, firstName: "Ann", lastName : "King", jobs: []},
-            {id: 2, firstName: "Ben", lastName : "White", jobs: []},
-            {id: 3, firstName: "Chris", lastName : "Smith", jobs: []},
-            {id: 4, firstName: "Damon", lastName : "Albarn", jobs: []},
-            {id: 5, firstName: "Emma", lastName : "Woods", jobs: []}
+            {id: 1, firstName: "Ann", lastName : "King", fullName: 'Ann King', jobs: []},
+            {id: 2, firstName: "Ben", lastName : "White", fullName: 'Ben White', jobs: []},
+            {id: 3, firstName: "Chris", lastName : "Smith", fullName: 'Chris Smith', jobs: []},
+            {id: 4, firstName: "Damon", lastName : "Albarn", fullName: 'Damon Albarn', jobs: []},
+            {id: 5, firstName: "Emma", lastName : "Woods", fullName: 'Emma Woods', jobs: []}
 
         ]
 
@@ -57,9 +57,13 @@ window.timesheetBbApp = {
     init: function () {
         'use strict';
         console.log('Hello from Backbone!');
-        var testCollection = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
-        console.log(testCollection.models);
-        var testView = new timesheetBbApp.Views.EmployeesListView({model: testCollection});
+
+        window.employeesCollection = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
+
+        window.jobsCollection = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
+
+        console.log(employeesCollection.models);
+        var testView = new timesheetBbApp.Views.EmployeesListView({model: employeesCollection});
         $('#employees').append(testView.render().el);
     }
 };

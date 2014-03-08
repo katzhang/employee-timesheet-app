@@ -51,7 +51,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
     	template: JST['app/scripts/templates/jobs-search.ejs'],
 
 	    initialize: function () {
-	        this.searchResults = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
+	        this.searchResults = jobsCollection;
 	        this.searchresultsView = new timesheetBbApp.Views.JobsListView({model: this.searchResults, className: 'dropdown-menu'});
 	    },
 

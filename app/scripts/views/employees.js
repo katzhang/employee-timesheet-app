@@ -28,8 +28,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         className: 'btn btn-default',
 
         events: {
-        	'click a span.list-item': 	'getEmployeeJobs',
-        	'click a': 	'getJobsMenu'
+        	'click a span.list-item': 	'getEmployeeDetail'
         },
 
         render: function () {
@@ -38,16 +37,36 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         	return this;
         },
 
-        getEmployeeJobs: function() {
-        	console.log(this.model.attributes);
-        },
-
-        getJobsMenu: function() {
-        	console.log('get jobs');
-        	var jobSearchView = new timesheetBbApp.Views.JobSearchView();
-        	$('#jobs').html(jobSearchView.render().el);
+        getEmployeeDetail: function(e) {
+            console.log($(e.target).html());
+            var selectedEmployee = employeesCollection.findWhere({fullName: $(e.target).html()});
+            var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView();
+            $('#employee-detail').html(employeeDetailView.render().el);
         }
 
     });
+
+    timesheetBbApp.Views.EmployeesDetailView = Backbone.View.extend({
+
+        tagName: 'section',
+
+        // id: 'employee-detail',
+
+        initialize: function() {
+
+        },
+
+        render: function() {
+            console.log('employee detail view rendered!');
+            var self = this;
+            // var employeeJobs = this.model.attributes.jobs;
+            // var employeeJobsView = new timesheetBbApp.Views.JobsListView({model: this.searchResults, className: 'dropdown-menu'});
+            var jobSearchView = new timesheetBbApp.Views.JobSearchView();
+            self.el = jobSearchView.render().el;
+            console.log(self.el);
+            // $('#jobs-search-menu').html(jobSearchView.render().el);
+            return this;
+        }
+    })
 
 })();
