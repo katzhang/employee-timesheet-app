@@ -96,10 +96,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             self.model.jobs.add(selectedJob);
             // self.model.save();
             self.model.fetch();
-            setTimeout(function() {
-                console.log(self.model.jobs);
-            }, 1500);
-            // console.log(this.model.get('jobs'));
+            console.log(self.model.jobs);
         }
 
 
