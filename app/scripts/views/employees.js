@@ -68,7 +68,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         render: function(employee) {
 
             var self = this;
-            var employeeJobs = employee.get('jobs');
+            var employeeJobs = employee.jobs;
+            console.log(employee);
+            console.log(employeeJobs instanceof timesheetBbApp.Collections.JobsCollection);
             var employeeJobsView;
 
             if (employeeJobs.length == 0) {
@@ -89,10 +91,14 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         addJob: function(e) {
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
-            this.model.jobs.create(selectedJob.attributes);
+            console.log(self.model.attributes);
+            console.log(self.model.attributes.jobs instanceof timesheetBbApp.Collections.JobsCollection);
+            self.model.jobs.add(selectedJob);
+            // self.model.save();
+            self.model.fetch();
             setTimeout(function() {
-                console.log(self.model);
-            }, 500);
+                console.log(self.model.jobs);
+            }, 1500);
             // console.log(this.model.get('jobs'));
         }
 

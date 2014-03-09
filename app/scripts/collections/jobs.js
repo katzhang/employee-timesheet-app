@@ -9,14 +9,13 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
         model: timesheetBbApp.Models.JobsModel,
 
-        localStorage: new Backbone.LocalStorage("JobsCollection"),
+        localStorage: new Backbone.LocalStorage("JobsCollectionStorage"),
 
         url: '',
 
         findJobName: function(searchkey) {
             var jobs = jobsCollection.filter(function (element) {
                 var jobName = element.get('name');
-                console.log(jobName);
                 return jobName.toLowerCase().indexOf(searchkey.toLowerCase()) > -1;
             });
             return new timesheetBbApp.Collections.JobsCollection(jobs);

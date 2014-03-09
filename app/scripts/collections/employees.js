@@ -9,7 +9,7 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
         model: timesheetBbApp.Models.EmployeesModel,
 
-        localStorage: new Backbone.LocalStorage("EmployeesCollection"),
+        localStorage: new Backbone.LocalStorage("employeeCollectionStorage"),
 
         // sync: function(method, model, options) {
         // 	console.log('EmployeesCollection synced');
@@ -19,10 +19,6 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
         //         });
         //     }
         // },
-
-        error: function() {
-        	console.log('EmployeesCollection sync failed');
-        }
 
     });
 

@@ -10,6 +10,8 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         initialize: function() {
         },
 
+        localStorage: new Backbone.LocalStorage("JobModelStorage"),
+
         defaults: {
         },
 
@@ -18,15 +20,15 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         parse: function(response, options)  {
             return response;
-        },
-
-        sync: function(method, model, options) {
-            if (method === "read") {
-                directory.store.findByName(options.data.name, function (data) {
-                    options.success(data);
-                });
-            }
         }
+
+        // sync: function(method, model, options) {
+        //     if (method === "read") {
+        //         directory.store.findByName(options.data.name, function (data) {
+        //             options.success(data);
+        //         });
+        //     }
+        // }
     });
 
 })();

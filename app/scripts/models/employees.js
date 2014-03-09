@@ -9,8 +9,10 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         url: '',
 
+        localStorage: new Backbone.LocalStorage("employeeModelStorage"),
+
         initialize: function() {
-            this.jobs = new timesheetBbApp.Collections.JobsCollection;
+            this.jobs = new timesheetBbApp.Collections.JobsCollection();
         },
 
         defaults: {
