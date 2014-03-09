@@ -39,34 +39,64 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         getEmployeeDetail: function(e) {
             console.log($(e.target).html());
+
             var selectedEmployee = employeesCollection.findWhere({fullName: $(e.target).html()});
-            var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView();
-            $('#employee-detail').html(employeeDetailView.render().el);
+
+            var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
+
+            $('#jobs-search-menu').html(employeeDetailView.render(selectedEmployee).el.jobSearch);
+            if (employeeDetailView.render(selectedEmployee).el.employeeJobs) {
+                $('#employee-jobs').html(employeeDetailView.render(selectedEmployee).el.employeeJobs);
+            }
         }
 
     });
 
     timesheetBbApp.Views.EmployeesDetailView = Backbone.View.extend({
 
-        tagName: 'section',
+        el: $('#employee-detail'),
 
-        // id: 'employee-detail',
+        events: {
+            'click span.list-item': 'addJob'
+        },
 
         initialize: function() {
 
+
         },
 
-        render: function() {
-            console.log('employee detail view rendered!');
+        render: function(employee) {
+
             var self = this;
-            // var employeeJobs = this.model.attributes.jobs;
-            // var employeeJobsView = new timesheetBbApp.Views.JobsListView({model: this.searchResults, className: 'dropdown-menu'});
+            var employeeJobs = employee.get('jobs');
+            var employeeJobsView;
+
+            if (employeeJobs.length == 0) {
+                console.log('no jobs for this person');
+            } else {
+                employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobs});
+                self.el.employeeJobs = employeeJobsView.render().el;
+            }
+
             var jobSearchView = new timesheetBbApp.Views.JobSearchView();
-            self.el = jobSearchView.render().el;
-            console.log(self.el);
+
+            self.el.jobSearch = jobSearchView.render().el;
+
             // $('#jobs-search-menu').html(jobSearchView.render().el);
             return this;
+        },
+
+        addJob: function(e) {
+            var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
+            var self = this;
+            this.model.jobs.create(selectedJob.attributes);
+            setTimeout(function() {
+                console.log(self.model);
+            }, 500);
+            // console.log(this.model.get('jobs'));
         }
+
+
     })
 
 })();

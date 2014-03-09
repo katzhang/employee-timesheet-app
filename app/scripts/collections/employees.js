@@ -9,6 +9,8 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
         model: timesheetBbApp.Models.EmployeesModel,
 
+        localStorage: new Backbone.LocalStorage("EmployeesCollection"),
+
         // sync: function(method, model, options) {
         // 	console.log('EmployeesCollection synced');
         //     if (method === "read") {

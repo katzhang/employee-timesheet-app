@@ -53,6 +53,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 	    initialize: function () {
 	        this.searchResults = jobsCollection;
 	        this.searchresultsView = new timesheetBbApp.Views.JobsListView({model: this.searchResults, className: 'dropdown-menu'});
+	    	this.searchResults.on('reset', this.render, this);
 	    },
 
 	    render: function () {
@@ -69,13 +70,25 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 	    search: function (event) {
 	    	$('.dropdown-menu').html('');
 	        var key = $('#searchText').val();
-	        console.log(key);
-	        this.searchResults.fetch({reset: true, data: {name: key}});
 	        var self = this;
+	        console.log(key);
+	        // this.searchResults.fetch({reset: true, data: {name: key}});
+	        var jobs = this.searchResults.findJobName(key);
+	        console.log(jobs);
+	    	this.searchResults = jobs;
+	    	this.searchresultsView = new timesheetBbApp.Views.JobsListView({ model: this.searchResults, className: 'dropdown-menu'});
+	    	$('.navbar-search', this.el).append(this.searchresultsView.render().el);
 	        setTimeout(function () {
 	            $('.dropdown').addClass('open');
 	        });
 	    },
+
+	    // updateResults: function(cxt, jobs) {
+	    // 	console.log('updateResults:' + jobs);
+	    // 	cxt.searchResults = jobs;
+	    // 	cxt.searchresultsView = new timesheetBbApp.Views.JobsListView({ model: cxt.searchResults, className: 'dropdown-menu'});
+	    // 	$('.navbar-search', cxt.el).append(cxt.searchresultsView.render().el);
+	    // },
 
 	    onkeypress: function (event) {
 	        if (event.keyCode === 13) { // enter key pressed

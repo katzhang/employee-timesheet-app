@@ -19,7 +19,6 @@ window.timesheetBbApp = {
         this.findJobName = function (searchKey, callback) {
             var jobs = this.jobs.filter(function (element) {
                 var jobName = element.name;
-                console.log(jobName);
                 return jobName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
             });
             callLater(callback, jobs);
