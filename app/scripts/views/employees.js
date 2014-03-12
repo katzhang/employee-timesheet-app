@@ -62,22 +62,25 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         initialize: function() {
 
+            this.listenTo(this.model, 'change', this.render);
 
         },
 
         render: function(employee) {
 
             var self = this;
-            var employeeJobs = employee.jobs;
+            var employeeJobs = employee.get('jobs');
+            var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
             console.log(employee);
-            console.log(employeeJobs instanceof timesheetBbApp.Collections.JobsCollection);
             var employeeJobsView;
 
             if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
             } else {
-                employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobs});
+                console.log(employeeJobs);
+                employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
                 self.el.employeeJobs = employeeJobsView.render().el;
+                $('#employee-jobs').html(self.el.employeeJobs);
             }
 
             var jobSearchView = new timesheetBbApp.Views.JobSearchView();
@@ -92,11 +95,10 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
             console.log(self.model.attributes);
-            console.log(self.model.attributes.jobs instanceof timesheetBbApp.Collections.JobsCollection);
-            self.model.jobs.add(selectedJob);
-            // self.model.save();
+            self.model.addJob(selectedJob);
+            self.model.save();
             self.model.fetch();
-            console.log(self.model.jobs);
+            console.log(self.model.get('jobs'));
         }
 
 

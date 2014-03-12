@@ -12,14 +12,24 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         localStorage: new Backbone.LocalStorage("employeeModelStorage"),
 
         initialize: function() {
-            this.jobs = new timesheetBbApp.Collections.JobsCollection();
         },
 
         defaults: {
+            'jobs': []
         },
 
         addJob: function(job) {
-            this.jobs.add(job);
+            var currentJobs = this.get('jobs');
+            //check if the job has already existed
+            for (var i = 0; i < currentJobs.length; i++) {
+                if (currentJobs[i].name === job.get('name')) {
+
+                    console.log('job already exists');
+                    return;
+                }
+            }
+            currentJobs.push(job);
+            this.set({ 'jobs': currentJobs });
         },
 
         removeJob: function(job) {
