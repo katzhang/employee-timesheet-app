@@ -9,7 +9,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         url: '',
 
-        localStorage: new Backbone.LocalStorage("employeeModelStorage"),
+        // localStorage: new Backbone.LocalStorage("employeeModelStorage"),
 
         initialize: function() {
         },

@@ -64,6 +64,8 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
             this.listenTo(this.model, 'change', this.render);
 
+            this.model.fetch();
+
         },
 
         render: function(employee) {
