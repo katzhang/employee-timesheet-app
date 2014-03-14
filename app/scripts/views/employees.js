@@ -78,6 +78,8 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
             if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
+                $('#employee-jobs').html('');
+                self.el.employeeJobs = false;
             } else {
                 console.log(employeeJobs);
                 employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
