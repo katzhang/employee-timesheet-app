@@ -74,7 +74,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 	        console.log(key);
 	        // this.searchResults.fetch({reset: true, data: {name: key}});
 	        var jobs = this.searchResults.findJobName(key);
-	        console.log(jobs);
 	    	this.searchResults = jobs;
 	    	this.searchresultsView = new timesheetBbApp.Views.JobsListView({ model: this.searchResults, className: 'dropdown-menu'});
 	    	$('.navbar-search', this.el).append(this.searchresultsView.render().el);

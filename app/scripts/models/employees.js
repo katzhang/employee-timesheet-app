@@ -19,17 +19,29 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         },
 
         addJob: function(job) {
+            console.log('addjob function starts');
             var currentJobs = this.get('jobs');
-            //check if the job has already existed
-            for (var i = 0; i < currentJobs.length; i++) {
-                if (currentJobs[i].name === job.get('name')) {
+            var currentJobsCopy = this.get('jobs');
 
-                    console.log('job already exists');
-                    return;
+            if (currentJobs.length == 0) {
+                currentJobs.push(job);
+            } else {
+                //check if the job has already existed
+                for (var i = 0; i < currentJobs.length; i++) {
+                    if (currentJobs[i].name === job.get('name')) {
+
+                        console.log('job already exists');
+                        break;
+                    } else {
+                        console.log('job doesnt exit so add it ' + currentJobs.length); 
+                        
+                        // currentJobsCopy.push(job);
+                    }
                 }
             }
-            currentJobs.push(job);
-            this.set({ 'jobs': currentJobs });
+
+            // currentJobs.push(job);
+            this.set({ 'jobs': currentJobsCopy });
         },
 
         removeJob: function(job) {
