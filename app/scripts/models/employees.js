@@ -1,6 +1,7 @@
 /*global timesheetBbApp, Backbone*/
 
 timesheetBbApp.Models = timesheetBbApp.Models || {};
+//some changes
 
 (function () {
     'use strict';
