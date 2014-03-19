@@ -21,27 +21,27 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         addJob: function(job) {
             console.log('addjob function in models starts');
             var currentJobs = this.get('jobs');
-            var currentJobsCopy = this.get('jobs');
 
-            if (currentJobs.length == 0) {
-                currentJobsCopy.push(job);
-            } else {
-                //check if the job has already existed
-                for (var i = 0; i < currentJobs.length; i++) {
-                    if (currentJobs[i].name === job.get('name')) {
+            // if (currentJobs.length == 0) {
+            //     //currentJobsCopy.push(job);
+            // } else {
+            //     //check if the job has already existed
+            //     for (var i = 0; i < currentJobs.length; i++) {
+            //         if (currentJobs[i].name === job.get('name')) {
 
-                        console.log('job already exists');
-                        return;
-                    } else {
-                        console.log('job doesnt exit so add it ' + currentJobs.length); 
+            //             console.log('job already exists');
+            //             return;
+            //         } else {
+            //             console.log('job doesnt exit so add it ' + currentJobs.length); 
 
-                        currentJobsCopy.push(job);
-                    }
-                }
-            }
+            //             //currentJobsCopy.push(job);
+            //         }
+            //     }
+            // }
 
-            // currentJobs.push(job);
-            this.set({ 'jobs': currentJobsCopy });
+            currentJobs.push(job);
+            this.set({ 'jobs': currentJobs });
+            this.save();
         },
 
         removeJob: function(job) {

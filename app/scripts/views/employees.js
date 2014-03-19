@@ -28,7 +28,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         className: 'btn btn-default',
 
         events: {
-        	'click a span.list-item': 	'getEmployeeDetail'
+        	'click': 	'getEmployeeDetail'
         },
 
         render: function () {
@@ -59,7 +59,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         el: $('#employee-detail'),
 
         events: {
-            'click span.list-item': 'addJob'
+            'click .dropdown-menu .list-item': 'addJob'
         },
 
         initialize: function() {
@@ -100,7 +100,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
                 $('#employee-jobs').html('');
-                return;
             } else {
                 employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
                 $('#employee-jobs').html(employeeJobsView.render().el);
@@ -116,8 +115,14 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         addJob: function(e) {
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
-            self.model.addJob(selectedJob);
-            self.model.save();
+            console.log(self.model);
+            if (self.model.cid === 'c5') {
+                self.model.addJob(selectedJob);
+            } else {
+                return;
+            }
+            // self.model.addJob(selectedJob);
+            // self.model.save();
             self.model.fetch();
             console.log(self.model.get('jobs'));
         }
