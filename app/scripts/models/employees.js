@@ -41,7 +41,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
             currentJobs.push(job);
             this.set({ 'jobs': currentJobs });
-            this.save();
         },
 
         removeJob: function(job) {

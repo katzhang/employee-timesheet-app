@@ -96,9 +96,12 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var employeeJobs = employee.get('jobs');
             var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             // console.log(employee);
 >>>>>>> 4da7417c18e17d9b3807a65631d9bb909786dfcb
+=======
+>>>>>>> d089c204f90ca7a8ea363d2172aa417ee956432d
             var employeeJobsView;
 
             if (employeeJobs.length == 0) {
@@ -117,10 +120,12 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         },
 
         addJob: function(e) {
-            console.log('add job!'); 
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d089c204f90ca7a8ea363d2172aa417ee956432d
             console.log(self.model);
             if (self.model.cid === 'c5') {
                 self.model.addJob(selectedJob);
@@ -129,11 +134,14 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             }
             // self.model.addJob(selectedJob);
             // self.model.save();
+<<<<<<< HEAD
 =======
             console.log('add job model:　' + self.model.attributes);
             self.model.addJob(selectedJob);
             self.model.save();
 >>>>>>> 4da7417c18e17d9b3807a65631d9bb909786dfcb
+=======
+>>>>>>> d089c204f90ca7a8ea363d2172aa417ee956432d
             self.model.fetch();
             console.log(self.model.get('jobs'));
         }
