@@ -44,10 +44,12 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
             var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
 
-            $('#jobs-search-menu').html(employeeDetailView.render(selectedEmployee).el.jobSearch);
-            if (employeeDetailView.render(selectedEmployee).el.employeeJobs) {
-                $('#employee-jobs').html(employeeDetailView.render(selectedEmployee).el.employeeJobs);
-            }
+            employeeDetailView.render();
+
+            // $('#jobs-search-menu').html(employeeDetailView.render(selectedEmployee).el.jobSearch);
+            // if (employeeDetailView.render(selectedEmployee).el.employeeJobs) {
+            //     $('#employee-jobs').html(employeeDetailView.render(selectedEmployee).el.employeeJobs);
+            // }
         }
 
     });
@@ -62,43 +64,58 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         initialize: function() {
 
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'add', this.render);
 
             this.model.fetch();
 
+            // self.employeeJobs = employee.get('jobs');
+            // self.employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+
+            // if (self.employeeJobs.length == 0) {
+            //     console.log('no jobs for self person');
+            //     $('#employee-jobs').html('');
+            //     self.employeeJobs = '<p>self person has no jobs assigned.</p>';
+            // } else {
+            //     self.employeeJobsView = new timesheetBbApp.Views.JobsListView({model: self.employeeJobsCollection});
+            //     self.employeeJobs = self.employeeJobsView.render().el;
+            // }
+
+            // self.jobSearchView = new timesheetBbApp.Views.JobSearchView();
+
+            // self.jobSearch = self.jobSearchView.render().el;
+
+
         },
 
-        render: function(employee) {
+        render: function() {
+            console.log('employeeDetailView render starts');
 
             var self = this;
+            var employee = self.model;
+            console.log(employee);
             var employeeJobs = employee.get('jobs');
             var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
-            console.log(employee);
             var employeeJobsView;
 
             if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
                 $('#employee-jobs').html('');
-                self.el.employeeJobs = false;
+                return;
             } else {
-                console.log(employeeJobs);
                 employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
-                self.el.employeeJobs = employeeJobsView.render().el;
-                $('#employee-jobs').html(self.el.employeeJobs);
+                $('#employee-jobs').html(employeeJobsView.render().el);
             }
 
             var jobSearchView = new timesheetBbApp.Views.JobSearchView();
 
-            self.el.jobSearch = jobSearchView.render().el;
+            $('#jobs-search-menu').html(jobSearchView.render().el);
 
-            // $('#jobs-search-menu').html(jobSearchView.render().el);
             return this;
         },
 
         addJob: function(e) {
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
-            console.log(self.model.attributes);
             self.model.addJob(selectedJob);
             self.model.save();
             self.model.fetch();
