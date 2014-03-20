@@ -22,6 +22,25 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         addJob: function(job) {
             console.log('addjob function in models starts');
             var currentJobs = this.get('jobs');
+            var indicator = false;
+
+            if (!currentJobs.length) {
+                indicator = true;
+            } else {
+                for (var i = 0; i < currentJobs.length; i++) {
+                    if (currentJobs[i].name === job.get('name')) {
+                        console.log('job already exists');
+                        return;
+                    } else {
+                        console.log('new job, add it');
+                        indicator = true;
+                    }
+                }
+            }
+
+            if (indicator) {
+                currentJobs.push(job);
+            }
 
             // if (currentJobs.length == 0) {
             //     //currentJobsCopy.push(job);
@@ -40,8 +59,9 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             //     }
             // }
 
-            currentJobs.push(job);
             this.set({ 'jobs': currentJobs });
+            this.save();
+            this.fetch();
         },
 
         removeJob: function(job) {
