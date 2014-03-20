@@ -40,11 +40,20 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         getEmployeeDetail: function(e) {
             console.log($(e.target).html());
 
+
+
+
             var selectedEmployee = employeesCollection.findWhere({fullName: $(e.target).html()});
+
+            $('.employees-list .list-item').removeClass('current');
+
+            var currentBtn = selectedEmployee.get('id');
+            $('#' + currentBtn).addClass('current');
 
             var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
 
             employeeDetailView.render();
+
 
             // $('#jobs-search-menu').html(employeeDetailView.render(selectedEmployee).el.jobSearch);
             // if (employeeDetailView.render(selectedEmployee).el.employeeJobs) {
@@ -115,15 +124,17 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         addJob: function(e) {
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
-            console.log(self.model);
-            if (self.model.cid === 'c5') {
+            var curEmployeeId = $('.list-item.current').attr('id');
+            console.log(curEmployeeId);
+            console.log(self.model.get('id'));
+            if (self.model.get('id') === curEmployeeId) {
                 self.model.addJob(selectedJob);
+                self.model.save();
+                self.model.fetch();
             } else {
                 return;
             }
             // self.model.addJob(selectedJob);
-            // self.model.save();
-            self.model.fetch();
             console.log(self.model.get('jobs'));
         }
 

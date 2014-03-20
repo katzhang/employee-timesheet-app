@@ -26,6 +26,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     width: 100%;
 }
 
+.employees-list .list-item.current {
+    color: red;
+}
+
 #employee-detail {
     margin-left: 100px;
 }
