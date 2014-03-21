@@ -13,11 +13,12 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         // localStorage: new Backbone.LocalStorage("employeeModelStorage"),
 
         initialize: function() {
+            this.set('jobs', []);
         },
 
-        defaults: {
-            'jobs': []
-        },
+        // defaults: {
+        //     'jobs': []
+        // },
 
         addJob: function(job) {
             console.log('addjob function in models starts');
@@ -59,9 +60,9 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             //     }
             // }
 
-            this.set({ 'jobs': currentJobs });
-            this.save();
-            this.fetch();
+            this.save({ 'jobs': currentJobs });
+            // this.save();
+            // this.fetch();
         },
 
         removeJob: function(job) {
