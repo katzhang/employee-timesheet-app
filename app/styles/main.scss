@@ -51,6 +51,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     display: table-row;
 }
 
+.delete-job {
+    float: right;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 

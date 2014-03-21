@@ -65,8 +65,25 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             // this.fetch();
         },
 
-        removeJob: function(job) {
-            this.jobs = this.jobs.remove(job);
+        deleteJob: function(job) {
+            var currentJobs = this.get('jobs');
+            var currentJobsCopy;
+            // var indicator = false;
+
+            for (var i = 0; i < currentJobs.length; i++) {
+                if (currentJobs[i].name === job.get('name')) {
+                   currentJobsCopy = _.omit(currentJobs, i);
+                }
+            }
+
+            // if (indicator) {
+
+            // }
+
+            this.save({'jobs': currentJobsCopy});
+
+
+            console.log(this.get('jobs'));
         },
 
         // sync: function(method, model, options) {

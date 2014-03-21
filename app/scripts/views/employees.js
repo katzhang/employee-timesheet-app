@@ -68,7 +68,8 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         el: $('#employee-detail'),
 
         events: {
-            'click .dropdown-menu .list-item': 'callAddJob'
+            'click .dropdown-menu .list-item': 'callAddJob',
+            'click .delete-job': 'callDeleteJob'
         },
 
         initialize: function() {
@@ -137,6 +138,13 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             }
             // self.model.addJob(selectedJob);
             console.log(self.model.get('jobs'));
+        },
+
+        callDeleteJob: function(e) {
+            e.preventDefault();
+            var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
+            var self = this;
+            self.model.deleteJob(selectedJob);
         }
 
 
