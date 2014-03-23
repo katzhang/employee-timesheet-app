@@ -68,8 +68,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         el: $('#employee-detail'),
 
         events: {
-            'click .dropdown-menu .list-item': 'callAddJob',
-            'click .delete-job': 'callDeleteJob'
+            'click .dropdown-menu .list-item': 'callAddJob'
+            // 'click .delete-job': 'callDeleteJob',
+            // 'change select': 'callSetTime'
         },
 
         initialize: function() {
@@ -78,24 +79,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             this.listenTo(this.model, 'change:jobs', this.render);
 
             this.model.fetch({reset: true});
-
-            // self.employeeJobs = employee.get('jobs');
-            // self.employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
-
-            // if (self.employeeJobs.length == 0) {
-            //     console.log('no jobs for self person');
-            //     $('#employee-jobs').html('');
-            //     self.employeeJobs = '<p>self person has no jobs assigned.</p>';
-            // } else {
-            //     self.employeeJobsView = new timesheetBbApp.Views.JobsListView({model: self.employeeJobsCollection});
-            //     self.employeeJobs = self.employeeJobsView.render().el;
-            // }
-
-            // self.jobSearchView = new timesheetBbApp.Views.JobSearchView();
-
-            // self.jobSearch = self.jobSearchView.render().el;
-
-
         },
 
         render: function() {
@@ -139,21 +122,39 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             }
             // self.model.addJob(selectedJob);
             console.log(self.model.get('jobs'));
-        },
-
-        callDeleteJob: function(e) {
-            e.preventDefault();
-            var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
-            var self = this;
-            var curEmployeeId = $('.list-item.current').attr('id');
-            if (self.model.get('id') === curEmployeeId) {
-                self.model.deleteJob(selectedJob);
-                // self.model.save();
-                // self.model.fetch();
-            } else {
-                return;
-            }
         }
+
+        // callDeleteJob: function(e) {
+        //     e.preventDefault();
+        //     var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
+        //     var self = this;
+        //     var curEmployeeId = $('.list-item.current').attr('id');
+        //     if (self.model.get('id') === curEmployeeId) {
+        //         self.model.deleteJob(selectedJob);
+        //         // self.model.save();
+        //         // self.model.fetch();
+        //     } else {
+        //         return;
+        //     }
+        // },
+
+        // callSetTime: function(e) {
+        //     console.log('callSetTime');
+        //     var select = $(e.target);
+        //     var selectedJob = select.next().data('job-name');
+        //     var currentJobs = this.model.get('jobs');
+        //     console.log(currentJobs);
+        //     var time = select.children(":selected").html();
+
+        //     for (var i = 0; currentJobs.length; i++) {
+        //         if (currentJobs[i].name === selectedJob) {
+        //             console.log(currentJobs[i]);
+        //             currentJobs[i].setTime(time);
+        //         }
+        //     }
+        //     console.log(time);
+        //     console.log(this.model);
+        // }
 
 
     })

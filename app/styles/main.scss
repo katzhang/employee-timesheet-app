@@ -55,6 +55,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     float: right;
 }
 
+.dropdown-menu .delete-job, .dropdown-menu select {
+    display: none;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 

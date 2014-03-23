@@ -13,6 +13,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         // localStorage: new Backbone.LocalStorage("JobModelStorage"),
 
         defaults: {
+            time: 0.5
         },
 
         validate: function(attrs, options) {
@@ -20,6 +21,10 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         parse: function(response, options)  {
             return response;
+        },
+
+        setTime: function(time) {
+            this.set('time', time);
         }
 
         // sync: function(method, model, options) {
