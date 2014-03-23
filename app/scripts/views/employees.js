@@ -105,6 +105,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var employee = self.model;
             console.log(employee);
             var employeeJobs = employee.get('jobs');
+            console.log(employeeJobs);
             var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
             var employeeJobsView;
 
@@ -144,7 +145,14 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             e.preventDefault();
             var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
             var self = this;
-            self.model.deleteJob(selectedJob);
+            var curEmployeeId = $('.list-item.current').attr('id');
+            if (self.model.get('id') === curEmployeeId) {
+                self.model.deleteJob(selectedJob);
+                // self.model.save();
+                // self.model.fetch();
+            } else {
+                return;
+            }
         }
 
 

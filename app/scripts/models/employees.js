@@ -66,21 +66,24 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         },
 
         deleteJob: function(job) {
+            console.log('deletejob in model starts');
             var currentJobs = this.get('jobs');
-            var currentJobsCopy;
-            // var indicator = false;
+            var jobIndex;
+            console.log(job);
 
             for (var i = 0; i < currentJobs.length; i++) {
                 if (currentJobs[i].name === job.get('name')) {
-                   currentJobsCopy = _.omit(currentJobs, i);
+                   // currentJobsCopy = _.omit(currentJobs, i);
+                   // indicator = true;
+                   jobIndex = i;
                 }
             }
 
-            // if (indicator) {
+            if (jobIndex || jobIndex === 0) {
+                currentJobs = _.without(currentJobs, currentJobs[jobIndex]);
+            }
 
-            // }
-
-            this.save({'jobs': currentJobsCopy});
+            this.save({'jobs': currentJobs});
 
 
             console.log(this.get('jobs'));
