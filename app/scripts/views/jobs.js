@@ -34,11 +34,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         tagName: 'li',
 
 
-        events: {
-            'click .delete-job': 'callDeleteJob',
-            'change select': 'callSetTime'
-        },
-
 	    initialize:function () {
 	        this.model.on("change", this.render, this);
 	        this.model.on("destroy", this.close, this);
@@ -48,39 +43,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         	var data = this.model.attributes;
         	this.$el.html(this.template(data));
         	return this;
-        },
-
-        callDeleteJob: function(e) {
-        	console.log(this);
-            // e.preventDefault();
-            // var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
-            // var self = this;
-            // var curEmployeeId = $('.list-item.current').attr('id');
-            // if (self.model.get('id') === curEmployeeId) {
-            //     self.model.deleteJob(selectedJob);
-            //     // self.model.save();
-            //     // self.model.fetch();
-            // } else {
-            //     return;
-            // }
-        },
-
-        callSetTime: function(e) {
-            console.log('callSetTime');
-            var select = $(e.target);
-            var selectedJob = select.next().data('job-name');
-            var currentJobs = this.model.get('jobs');
-            console.log(currentJobs);
-            var time = select.children(":selected").html();
-
-            for (var i = 0; currentJobs.length; i++) {
-                if (currentJobs[i].name === selectedJob) {
-                    console.log(currentJobs[i]);
-                    currentJobs[i].setTime(time);
-                }
-            }
-            console.log(time);
-            console.log(this.model);
         }
 
     });

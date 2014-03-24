@@ -8,32 +8,17 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
     timesheetBbApp.Models.JobsModel = Backbone.Model.extend({
 
         initialize: function() {
+            // this.setTime = this.setTime;
+            // console.log(this.setTime);
         },
-
-        // localStorage: new Backbone.LocalStorage("JobModelStorage"),
 
         defaults: {
-            time: 0.5
+            time: 0.5,
         },
 
-        validate: function(attrs, options) {
-        },
-
-        parse: function(response, options)  {
-            return response;
-        },
-
-        setTime: function(time) {
-            this.set('time', time);
+        parse: function(response, options) {
+            console.log(response);
         }
-
-        // sync: function(method, model, options) {
-        //     if (method === "read") {
-        //         directory.store.findByName(options.data.name, function (data) {
-        //             options.success(data);
-        //         });
-        //     }
-        // }
     });
 
 })();

@@ -22,6 +22,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         addJob: function(job) {
             console.log('addjob function in models starts');
+            console.log(job);
             var currentJobs = this.get('jobs');
             var indicator = false;
 
@@ -43,24 +44,10 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
                 currentJobs.push(job);
             }
 
-            // if (currentJobs.length == 0) {
-            //     //currentJobsCopy.push(job);
-            // } else {
-            //     //check if the job has already existed
-            //     for (var i = 0; i < currentJobs.length; i++) {
-            //         if (currentJobs[i].name === job.get('name')) {
-
-            //             console.log('job already exists');
-            //             return;
-            //         } else {
-            //             console.log('job doesnt exit so add it ' + currentJobs.length); 
-
-            //             //currentJobsCopy.push(job);
-            //         }
-            //     }
-            // }
+            console.log(currentJobs);
 
             this.save({ 'jobs': currentJobs });
+            console.log(this.get('jobs'));
             // this.save();
             // this.fetch();
         },
@@ -87,6 +74,21 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
 
             console.log(this.get('jobs'));
+        },
+
+        setJobHour: function(job, hour) {
+            console.log('set job hour starts');
+            var currentJobs = this.get('jobs');
+
+            for (var i = 0; i < currentJobs.length; i++) {
+                if (currentJobs[i].name === job.get('name')) {
+                   currentJobs[i].time = hour;
+                }
+            }
+            
+            this.save();
+            console.log(this.get('jobs'));
+            
         },
 
         // sync: function(method, model, options) {
