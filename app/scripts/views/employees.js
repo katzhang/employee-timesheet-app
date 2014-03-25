@@ -40,10 +40,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         getEmployeeDetail: function(e) {
             console.log($(e.target).html());
 
-
-
-
-            var selectedEmployee = employeesCollection.findWhere({fullName: $(e.target).html()});
+            var selectedEmployee = this.model;
+            console.log(this.model);
+            console.log(this.model.cid);
 
             $('.employees-list .list-item').removeClass('current');
 
@@ -75,6 +74,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         initialize: function() {
 
+            currentCid = this.model.cid;
+            console.log(currentCid);
+
             this.listenTo(this.model, 'add', this.render);
             this.listenTo(this.model, 'change:jobs', this.render);
 
@@ -83,6 +85,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         render: function() {
             console.log('employeeDetailView render starts');
+            $('#employee-jobs').html('');
 
             var self = this;
             var employee = self.model;
@@ -111,8 +114,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
             console.log(curEmployeeId);
-            console.log(self.model.get('id'));
-            if (self.model.get('id') === curEmployeeId) {
+            console.log('CID: ' + currentCid);
+            if (self.model.get('id') === curEmployeeId && self.model.cid === currentCid) {
+
                 self.model.addJob(selectedJob);
                 // self.model.save();
                 // self.model.fetch();

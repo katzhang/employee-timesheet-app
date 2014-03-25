@@ -61,19 +61,24 @@ window.timesheetBbApp = {
 
         window.jobsCollection = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
 
-        console.log(employeesCollection.models);
-        var testView = new timesheetBbApp.Views.EmployeesListView({model: employeesCollection});
-        $('#employees').append(testView.render().el);
+        window.currentCid = 0;
 
-        // $('#datepicker').datepicker({
-        //     onSelect: function (dateText, inst) {
-        //         var selectedDate = dateText;
-        //         var employeesOfDay = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
-        //         employeesOfDay.date(selectedDate);
-        //         var employeeOfDayView = new timesheetBbApp.Views.EmployeesListView({model: employeesOfDay});
-        //         $('#employees').html(employeeOfDayView.render().el);
-        //     }
-        // });
+        // console.log(employeesCollection.models);
+        // var testView = new timesheetBbApp.Views.EmployeesListView({model: employeesCollection});
+        // $('#employees').append(testView.render().el);
+
+        $('#datepicker').datepicker({
+            onSelect: function (dateText, inst) {
+                console.log('onSelect');
+                var selectedDate = dateText;
+                var employeesOfDay = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
+                console.log(employeesOfDay);
+                employeesOfDay.date(selectedDate);
+                var employeeOfDayView = new timesheetBbApp.Views.EmployeesListView({model: employeesOfDay});
+                $('#employees').html(employeeOfDayView.render().el);
+                $('#employee-jobs, #jobs-search-menu').html('');
+            }
+        });
     }
 };
 
