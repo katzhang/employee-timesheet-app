@@ -84,7 +84,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         },
 
         render: function() {
-            console.log('employeeDetailView render starts');
             $('#employee-jobs').html('');
 
             var self = this;

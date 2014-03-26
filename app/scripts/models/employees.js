@@ -22,7 +22,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         addJob: function(job) {
             console.log('addjob function in models starts');
-            console.log(job);
+            console.log(this.cid);
             var currentJobs = this.get('jobs');
             var indicator = false;
 

@@ -61,6 +61,8 @@ window.timesheetBbApp = {
 
         window.jobsCollection = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
 
+        window.dateCollection = new timesheetBbApp.Collections.DateCollection();
+
         window.currentCid = 0;
 
         // console.log(employeesCollection.models);
@@ -71,11 +73,30 @@ window.timesheetBbApp = {
             onSelect: function (dateText, inst) {
                 console.log('onSelect');
                 var selectedDate = dateText;
-                var employeesOfDay = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
-                console.log(employeesOfDay);
-                employeesOfDay.date(selectedDate);
-                var employeeOfDayView = new timesheetBbApp.Views.EmployeesListView({model: employeesOfDay});
-                $('#employees').html(employeeOfDayView.render().el);
+                var date;
+                console.log(dateCollection);
+                console.log(selectedDate);
+                if (dateCollection.findWhere({dateText: selectedDate})) {
+                    console.log('find same date');
+                    date = dateCollection.findWhere({dateText: selectedDate})
+                } else {
+                    date = new timesheetBbApp.Models.DateModel({dateText: selectedDate});
+                    dateCollection.add(date);
+                }
+
+                var employees;
+
+                if (!date.get('employees')) {
+                    employees = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
+                    date.set('employees', employees);
+                } else {
+                    employees = date.get('employees');
+                }
+                console.log(date);
+                // console.log(employees);
+                // employees.date(selectedDate);
+                var employeesView = new timesheetBbApp.Views.EmployeesListView({model: employees});
+                $('#employees').html(employeesView.render().el);
                 $('#employee-jobs, #jobs-search-menu').html('');
             }
         });

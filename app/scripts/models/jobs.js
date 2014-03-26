@@ -13,7 +13,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         },
 
         defaults: {
-            time: 0.5,
+            time: 1,
         },
 
         parse: function(response, options) {
