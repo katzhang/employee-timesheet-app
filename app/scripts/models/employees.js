@@ -20,37 +20,38 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         //     'jobs': []
         // },
 
-        addJob: function(job) {
-            console.log('addjob function in models starts');
-            console.log(this.cid);
-            var currentJobs = this.get('jobs');
-            var indicator = false;
+        // addJob: function(job) {
+        //     console.log('addjob function in models starts');
+        //     console.log(this.cid);
+        //     var currentJobs = this.get('jobs');
+        //     var indicator = false;
 
-            if (!currentJobs.length) {
-                indicator = true;
-            } else {
-                for (var i = 0; i < currentJobs.length; i++) {
-                    if (currentJobs[i].name === job.get('name')) {
-                        console.log('job already exists');
-                        return;
-                    } else {
-                        console.log('new job, add it');
-                        indicator = true;
-                    }
-                }
-            }
+        //     if (!currentJobs) {
+        //         currentJobs = [];
+        //         indicator = true;
+        //     } else {
+        //         for (var i = 0; i < currentJobs.length; i++) {
+        //             if (currentJobs[i].name === job.get('name')) {
+        //                 console.log('job already exists');
+        //                 return;
+        //             } else {
+        //                 console.log('new job, add it');
+        //                 indicator = true;
+        //             }
+        //         }
+        //     }
 
-            if (indicator) {
-                currentJobs.push(job);
-            }
+        //     if (indicator) {
+        //         currentJobs.push(job);
+        //     }
 
-            console.log(currentJobs);
+        //     console.log(currentJobs);
 
-            this.save({ 'jobs': currentJobs });
-            console.log(this.get('jobs'));
-            // this.save();
-            // this.fetch();
-        },
+        //     this.save({ 'jobs': currentJobs });
+        //     console.log(this.get('jobs'));
+        //     // this.save();
+        //     // this.fetch();
+        // },
 
         deleteJob: function(job) {
             console.log('deletejob in model starts');
@@ -77,7 +78,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         },
 
         setJobHour: function(job, hour) {
-            console.log('set job hour starts');
             var currentJobs = this.get('jobs');
 
             for (var i = 0; i < currentJobs.length; i++) {
@@ -87,7 +87,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             }
             
             this.save();
-            console.log(this.get('jobs'));
             
         },
 

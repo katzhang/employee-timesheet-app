@@ -93,6 +93,10 @@ window.timesheetBbApp = {
                     employees = date.get('employees');
                 }
                 console.log(date);
+                _.each(employees.models, function(element) {
+                    console.log(element.cid);
+                })
+
                 // console.log(employees);
                 // employees.date(selectedDate);
                 var employeesView = new timesheetBbApp.Views.EmployeesListView({model: employees});

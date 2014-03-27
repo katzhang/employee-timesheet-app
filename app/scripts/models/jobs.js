@@ -14,10 +14,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         defaults: {
             time: 1,
-        },
-
-        parse: function(response, options) {
-            console.log(response);
         }
     });
 
