@@ -33,11 +33,11 @@ window.timesheetBbApp = {
         }
 
         this.employees = [
-            {id: '1', firstName: "Ann", lastName : "King", fullName: 'Ann King'},
-            {id: '2', firstName: "Ben", lastName : "White", fullName: 'Ben White'},
-            {id: '3', firstName: "Chris", lastName : "Smith", fullName: 'Chris Smith'},
-            {id: '4', firstName: "Damon", lastName : "Albarn", fullName: 'Damon Albarn'},
-            {id: '5', firstName: "Emma", lastName : "Woods", fullName: 'Emma Woods'}
+            {employeeId: '1', firstName: "Ann", lastName : "King", fullName: 'Ann King'},
+            {employeeId: '2', firstName: "Ben", lastName : "White", fullName: 'Ben White'},
+            {employeeId: '3', firstName: "Chris", lastName : "Smith", fullName: 'Chris Smith'},
+            {employeeId: '4', firstName: "Damon", lastName : "Albarn", fullName: 'Damon Albarn'},
+            {employeeId: '5', firstName: "Emma", lastName : "Woods", fullName: 'Emma Woods'}
 
         ]
 
@@ -53,6 +53,24 @@ window.timesheetBbApp = {
 
     },
 
+    getDate: function (date) {
+
+        dateCollection.fetch();
+
+        console.log(dateCollection);
+        console.log(date);
+        if (!dateCollection.findWhere({dateText: date})) {
+            console.log('create new dateModel');
+            return dateCollection.create(new timesheetBbApp.Models.DateModel({dateText: date}));
+        } else {
+            return dateCollection.findWhere({dateText: date});
+        }
+
+
+    },
+
+    
+
     init: function () {
         'use strict';
         console.log('Hello from Backbone!');
@@ -65,45 +83,35 @@ window.timesheetBbApp = {
 
         window.currentCid = 0;
 
-        // console.log(employeesCollection.models);
-        // var testView = new timesheetBbApp.Views.EmployeesListView({model: employeesCollection});
-        // $('#employees').append(testView.render().el);
-
         $('#datepicker').datepicker({
             onSelect: function (dateText, inst) {
                 console.log('onSelect');
-                var selectedDate = dateText;
-                var date;
-                console.log(dateCollection);
-                console.log(selectedDate);
-                if (dateCollection.findWhere({dateText: selectedDate})) {
-                    console.log('find same date');
-                    date = dateCollection.findWhere({dateText: selectedDate})
-                } else {
-                    date = new timesheetBbApp.Models.DateModel({dateText: selectedDate});
-                    dateCollection.add(date);
-                }
+                var dateModel;
 
-                var employees;
+                // dateCollection.fetch();
 
-                if (!date.get('employees')) {
-                    employees = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
-                    date.set('employees', employees);
-                } else {
-                    employees = date.get('employees');
-                }
-                console.log(date);
-                _.each(employees.models, function(element) {
-                    console.log(element.cid);
-                })
+                // console.log(dateCollection);
+                // console.log(selectedDate);
+                // if (!dateCollection.findWhere({dateText: selectedDate})) {
+                //     dateCollection.create({dateText: selectedDate});
+                // }
 
-                // console.log(employees);
-                // employees.date(selectedDate);
+                dateModel = timesheetBbApp.getDate(dateText);
+
+                dateCollection.fetch();
+
+                var employees = dateModel.get('employees');
+
+                console.log(dateModel);
+
+                console.log(employees);
                 var employeesView = new timesheetBbApp.Views.EmployeesListView({model: employees});
+                // console.log(employeesView.render().el);
                 $('#employees').html(employeesView.render().el);
                 $('#employee-jobs, #jobs-search-menu').html('');
             }
         });
+
     }
 };
 

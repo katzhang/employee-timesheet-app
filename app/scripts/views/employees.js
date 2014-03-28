@@ -46,7 +46,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
             $('.employees-list .list-item').removeClass('current');
 
-            var currentBtn = employeesCollection.findWhere({fullName: $(e.target).html()}).get('id');
+            var currentBtn = employeesCollection.findWhere({fullName: $(e.target).html()}).get('employeeId');
             $('#' + currentBtn).addClass('current');
 
             var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
@@ -78,7 +78,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             console.log(currentCid);
 
             // this.listenTo(this.model, 'add', this.render);
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'change:jobs', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
 
             this.model.fetch();
@@ -91,9 +91,11 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var self = this;
             var employee = self.model;
             console.log(employee);
+
             var employeeJobs = employee.get('jobs');
             console.log(employeeJobs);
-            var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+            // var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+            var employeeJobsCollection = employeeJobs;
             var employeeJobsView;
 
             if (!employeeJobs) {
@@ -115,46 +117,15 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
-            console.log('CID: ' + currentCid);
-            if (self.model.get('id') === curEmployeeId && self.model.cid === currentCid) {
+            if (self.model.get('employeeId') === curEmployeeId && self.model.cid === currentCid) {
 
-                self.addJob(selectedJob);
+                self.model.addJob(selectedJob);
                 // self.model.save();
                 // self.model.fetch();
             } else {
                 return;
             }
             // self.model.addJob(selectedJob);
-        },
-
-
-        addJob: function(job) {
-            console.log('addjob function starts');
-            console.log(this.model.cid);
-            var currentJobs = this.model.get('jobs');
-            var indicator = false;
-
-            if (currentJobs.length == 0) {
-                indicator = true;
-            } else {
-                for (var i = 0; i < currentJobs.length; i++) {
-                    if (currentJobs[i].name === job.get('name')) {
-                        console.log('job already exists');
-                        return;
-                    } else {
-                        console.log('new job, add it');
-                        indicator = true;
-                    }
-                }
-            }
-
-            if (indicator) {
-                currentJobs.push(job);
-            }
-
-
-            this.model.save({ 'jobs': currentJobs });
-            console.log(this.model.get('jobs'));
         },
 
         callDeleteJob: function(e) {

@@ -13,45 +13,40 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         // localStorage: new Backbone.LocalStorage("employeeModelStorage"),
 
         initialize: function() {
-            this.set('jobs', []);
+            this.set('jobs', new timesheetBbApp.Collections.JobsCollection());
         },
 
-        // defaults: {
-        //     'jobs': []
-        // },
+        addJob: function(job) {
+            console.log('addjob function in models starts');
+            var currentJobs = this.get('jobs');
+            var indicator = false;
+            console.log(currentJobs);
 
-        // addJob: function(job) {
-        //     console.log('addjob function in models starts');
-        //     console.log(this.cid);
-        //     var currentJobs = this.get('jobs');
-        //     var indicator = false;
+     
 
-        //     if (!currentJobs) {
-        //         currentJobs = [];
-        //         indicator = true;
-        //     } else {
-        //         for (var i = 0; i < currentJobs.length; i++) {
-        //             if (currentJobs[i].name === job.get('name')) {
-        //                 console.log('job already exists');
-        //                 return;
-        //             } else {
-        //                 console.log('new job, add it');
-        //                 indicator = true;
-        //             }
-        //         }
-        //     }
+            if (currentJobs.length == 0) {
+                currentJobs.create(job);
+            } else {
+                currentJobs.each(function (element) {
+                    console.log('djofwj');
+                    if (element.get('name') === job.get('name')) {
+                        console.log('job already exists');
+                        return;
+                    } else {
+                        console.log('new job, create it');
+                        currentJobs.create(job);
+                    }
+                })
+            }
 
-        //     if (indicator) {
-        //         currentJobs.push(job);
-        //     }
+            // this.collection.fetch();
+            console.log(currentJobs);
+            // this.save({ 'jobs': currentJobs });
+            // currentJobs.fetch();
+            this.save();
+            console.log(this.get('jobs'));
 
-        //     console.log(currentJobs);
-
-        //     this.save({ 'jobs': currentJobs });
-        //     console.log(this.get('jobs'));
-        //     // this.save();
-        //     // this.fetch();
-        // },
+        },
 
         deleteJob: function(job) {
             console.log('deletejob in model starts');
@@ -75,6 +70,19 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
 
             console.log(this.get('jobs'));
+        },
+
+        date: function (value) {
+            if (value === undefined) {
+                return this._date;
+            } else {
+                if (this._date === '') {
+                    this._date = value;
+                    // this.save();
+                } else {
+                    return this._date;
+                }
+            }
         },
 
         setJobHour: function(job, hour) {

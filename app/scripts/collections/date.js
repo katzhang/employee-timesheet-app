@@ -11,10 +11,6 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
         localStorage: new Backbone.LocalStorage("dateCollectionStorage"),
 
-        initialize: function () {
-        }
-
-
     });
 
 })();

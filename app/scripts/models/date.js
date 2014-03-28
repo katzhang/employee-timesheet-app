@@ -8,6 +8,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
     timesheetBbApp.Models.DateModel = Backbone.Model.extend({
 
         initialize: function() {
+        	this.set('employees', new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees));
         },
 
         defaults: {

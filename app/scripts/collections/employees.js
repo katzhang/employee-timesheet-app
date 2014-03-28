@@ -13,19 +13,19 @@ timesheetBbApp.Collections = timesheetBbApp.Collections || {};
 
         initialize: function () {
             this._date = '';
-        },
-
-        date: function (value) {
-            if (value === undefined) {
-                return this._date;
-            } else {
-                if (this._date === '') {
-                    this._date = value;
-                } else {
-                    return this._date;
-                }
-            }
         }
+
+        // date: function (value) {
+        //     if (value === undefined) {
+        //         return this._date;
+        //     } else {
+        //         if (this._date === '') {
+        //             this._date = value;
+        //         } else {
+        //             return this._date;
+        //         }
+        //     }
+        // }
 
         // sync: function(method, model, options) {
         // 	console.log('EmployeesCollection synced');
