@@ -32,6 +32,13 @@ window.timesheetBbApp = {
             }
         }
 
+        callLater(successCallback);
+
+
+    },
+
+    Data: function() {
+
         this.employees = [
             {employeeId: '1', firstName: "Ann", lastName : "King", fullName: 'Ann King'},
             {employeeId: '2', firstName: "Ben", lastName : "White", fullName: 'Ben White'},
@@ -48,28 +55,42 @@ window.timesheetBbApp = {
             {id: 4, name: "Beautiful iPad App"}
         ]
 
-        callLater(successCallback);
+        this.dates = []
 
+        this.data = []
 
-    },
+        this.generateData = function() {
+            var employees = this.employees;
+            this.getDates();
+            var dates = this.dates;
 
-    getDate: function (date) {
+            for (var i = 0; i < employees.length; i++) {
+                for (var j = 0; j < dates.length; j++) {
+                    employees[i]['date'] = dates[j];
+                }
+            }
+        }
 
-        dateCollection.fetch();
+        this.getDates = function () {
+            var table = $('.ui-datepicker-calendar');
+            var self = this;
 
-        console.log(dateCollection);
-        console.log(date);
-        if (!dateCollection.findWhere({dateText: date})) {
-            console.log('create new dateModel');
-            return dateCollection.create(new timesheetBbApp.Models.DateModel({dateText: date}));
-        } else {
-            return dateCollection.findWhere({dateText: date});
+            table.find('td').each(function() {
+
+                var year = $(this).data('year');
+                var month = $(this).data('month');
+                var day = $(this).find('a').html();
+
+                if (year && month && day) {
+                    var date = new Date(year, month, day);
+                    self.dates.push(date);
+                }
+            })
         }
 
 
-    },
 
-    
+    },
 
     init: function () {
         'use strict';
@@ -79,28 +100,19 @@ window.timesheetBbApp = {
 
         window.jobsCollection = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
 
-        window.dateCollection = new timesheetBbApp.Collections.DateCollection();
+        window.dateCollection = new timesheetBbApp.Collections.DateCollection(timesheetBbApp.store.dates);
 
         window.currentCid = 0;
 
         $('#datepicker').datepicker({
             onSelect: function (dateText, inst) {
                 console.log('onSelect');
+
                 var dateModel;
 
-                // dateCollection.fetch();
+                dateModel = dateCollection.findWhere({date: dateText});
 
-                // console.log(dateCollection);
-                // console.log(selectedDate);
-                // if (!dateCollection.findWhere({dateText: selectedDate})) {
-                //     dateCollection.create({dateText: selectedDate});
-                // }
-
-                dateModel = timesheetBbApp.getDate(dateText);
-
-                dateCollection.fetch();
-
-                var employees = dateModel.get('employees');
+                var employees = dateModel.getEmployees;
 
                 console.log(dateModel);
 
@@ -112,12 +124,39 @@ window.timesheetBbApp = {
             }
         });
 
+
     }
 };
+
+// var dates = [];
+
+// function getDates() {
+//     var table = $('.ui-datepicker-calendar');
+//     console.log(this);
+//     table.find('td').each(function() {
+
+//         var year = $(this).data('year');
+//         var month = $(this).data('month');
+//         var day = $(this).find('a').html();
+
+//         if (year && month && day) {
+//             var date = new Date(year, month, day);
+//             dates.push(date);
+//         }
+//     })
+
+//     console.log(dates);
+// }
+
 
 $(document).ready(function () {
     'use strict';
 
     timesheetBbApp.store = new timesheetBbApp.MemoryStore();
+
+    timesheetBbApp.data = new timesheetBbApp.Data();
+
     timesheetBbApp.init();
+
+    timesheetBbApp.data.generateData();
 });

@@ -10,15 +10,16 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         url: '',
 
-        // localStorage: new Backbone.LocalStorage("employeeModelStorage"),
-
         initialize: function() {
-            this.set('jobs', new timesheetBbApp.Collections.JobsCollection());
+            this.set('jobs', []);
         },
 
         addJob: function(job) {
             console.log('addjob function in models starts');
             var currentJobs = this.get('jobs');
+            if (!currentJobs instanceof timesheetBbApp.Collections.JobsCollection) {
+                currentJobs = timesheetBbApp.Collection.JobsCollection(currentJobs);
+            }
             var indicator = false;
             console.log(currentJobs);
 
@@ -41,9 +42,10 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
             // this.collection.fetch();
             console.log(currentJobs);
-            // this.save({ 'jobs': currentJobs });
-            // currentJobs.fetch();
-            this.save();
+            this.save({'jobs': currentJobs}, {success: function() {
+                console.log('saved currentJobs success');
+            }});
+            currentJobs.fetch();
             console.log(this.get('jobs'));
 
         },
@@ -96,21 +98,6 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
             
             this.save();
             
-        },
-
-        // sync: function(method, model, options) {
-        //     if (method === "read") {
-        //         timesheetBbApp.store.findByName(options.data.name, function (data) {
-        //             options.success(data);
-        //         });
-        //     }
-        // },
-
-        validate: function(attrs, options) {
-        },
-
-        parse: function(response, options)  {
-            return response;
         }
     });
 

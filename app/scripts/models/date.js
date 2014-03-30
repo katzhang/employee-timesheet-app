@@ -8,11 +8,12 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
     timesheetBbApp.Models.DateModel = Backbone.Model.extend({
 
         initialize: function() {
-        	this.set('employees', new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees));
+        	console.log('date model initialize');
+        	this.set('employees', []);
         },
 
-        defaults: {
-            'dateText': '01/01/2014'
+        getEmployees: function() {
+        	return new timesheetBbApp.Collections.EmployeesCollection(this.get('employees'));
         }
     });
 

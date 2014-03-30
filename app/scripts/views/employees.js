@@ -41,8 +41,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             console.log($(e.target).html());
 
             var selectedEmployee = this.model;
-            console.log(this.model);
-            console.log(this.model.cid);
+            console.log(this.model.get('jobs'));
 
             $('.employees-list .list-item').removeClass('current');
 
@@ -52,12 +51,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
 
             employeeDetailView.render();
-
-
-            // $('#jobs-search-menu').html(employeeDetailView.render(selectedEmployee).el.jobSearch);
-            // if (employeeDetailView.render(selectedEmployee).el.employeeJobs) {
-            //     $('#employee-jobs').html(employeeDetailView.render(selectedEmployee).el.employeeJobs);
-            // }
         }
 
     });
@@ -74,9 +67,6 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         initialize: function() {
 
-            currentCid = this.model.cid;
-            console.log(currentCid);
-
             // this.listenTo(this.model, 'add', this.render);
             this.listenTo(this.model, 'change:jobs', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
@@ -86,19 +76,19 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         render: function() {
             $('#employee-jobs').html('');
-            // this.model.fetch();
+
+            console.log(this.model.cid);
 
             var self = this;
             var employee = self.model;
-            console.log(employee);
 
             var employeeJobs = employee.get('jobs');
-            console.log(employeeJobs);
-            // var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
-            var employeeJobsCollection = employeeJobs;
+
+            //after saving the job collection will be returned as an array rather than a bb collection
+            var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
             var employeeJobsView;
 
-            if (!employeeJobs) {
+            if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
                 $('#employee-jobs').html('');
             } else {
@@ -117,7 +107,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
-            if (self.model.get('employeeId') === curEmployeeId && self.model.cid === currentCid) {
+            if (self.model.get('employeeId') === curEmployeeId) {
 
                 self.model.addJob(selectedJob);
                 // self.model.save();
