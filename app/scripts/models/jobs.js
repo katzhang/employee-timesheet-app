@@ -1,11 +1,11 @@
-/*global timesheetBbApp, Backbone*/
+/*global app, Backbone*/
 
-timesheetBbApp.Models = timesheetBbApp.Models || {};
+app.Models = app.Models || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Models.JobsModel = Backbone.Model.extend({
+    app.Models.JobsModel = Backbone.Model.extend({
 
         initialize: function() {
             // this.setTime = this.setTime;

@@ -1,12 +1,12 @@
-/*global timesheetBbApp, Backbone*/
+/*global app, Backbone*/
 
-timesheetBbApp.Models = timesheetBbApp.Models || {};
+app.Models = app.Models || {};
 //some changes
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Models.EmployeesModel = Backbone.Model.extend({
+    app.Models.EmployeesModel = Backbone.Model.extend({
 
         url: '',
 
@@ -16,37 +16,31 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
 
         addJob: function(job) {
             console.log('addjob function in models starts');
+            console.log(this);
             var currentJobs = this.get('jobs');
-            if (!currentJobs instanceof timesheetBbApp.Collections.JobsCollection) {
-                currentJobs = timesheetBbApp.Collection.JobsCollection(currentJobs);
-            }
             var indicator = false;
-            console.log(currentJobs);
-
-     
 
             if (currentJobs.length == 0) {
-                currentJobs.create(job);
+                indicator = true;
             } else {
-                currentJobs.each(function (element) {
-                    console.log('djofwj');
-                    if (element.get('name') === job.get('name')) {
+                for (var i = 0; i < currentJobs.length; i++) {
+                    if (currentJobs[i].name === job.get('name')) {
                         console.log('job already exists');
                         return;
                     } else {
-                        console.log('new job, create it');
-                        currentJobs.create(job);
+                        indicator = true;
                     }
-                })
+                }
             }
 
-            // this.collection.fetch();
-            console.log(currentJobs);
+            if (indicator) {
+                currentJobs.push(job);
+            }
             this.save({'jobs': currentJobs}, {success: function() {
                 console.log('saved currentJobs success');
             }});
-            currentJobs.fetch();
-            console.log(this.get('jobs'));
+
+            this.save({newAttribute: 'new attribute'});
 
         },
 

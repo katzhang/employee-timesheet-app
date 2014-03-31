@@ -1,11 +1,11 @@
-/*global timesheetBbApp, Backbone, JST*/
+/*global app, Backbone, JST*/
 
-timesheetBbApp.Views = timesheetBbApp.Views || {};
+app.Views = app.Views || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Views.DateView = Backbone.View.extend({
+    app.Views.DateView = Backbone.View.extend({
 
         initialize: function () {
             this.render();

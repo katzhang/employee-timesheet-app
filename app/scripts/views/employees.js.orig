@@ -1,11 +1,11 @@
-/*global timesheetBbApp, Backbone, JST*/
+/*global app, Backbone, JST*/
 
-timesheetBbApp.Views = timesheetBbApp.Views || {};
+app.Views = app.Views || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Views.EmployeesListView = Backbone.View.extend({
+    app.Views.EmployeesListView = Backbone.View.extend({
 
         tagName: 'div',
 
@@ -13,13 +13,13 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         render: function () {
         	_.each(this.model.models, function (employee) {
-        		this.$el.append(new timesheetBbApp.Views.EmployeesListItemView({model: employee}).render().el);
+        		this.$el.append(new app.Views.EmployeesListItemView({model: employee}).render().el);
         	}, this);
         	return this;
         }
     });
 
-    timesheetBbApp.Views.EmployeesListItemView = Backbone.View.extend({
+    app.Views.EmployeesListItemView = Backbone.View.extend({
 
         template: JST['app/scripts/templates/employees-item.ejs'],
 
@@ -42,7 +42,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
             var selectedEmployee = employeesCollection.findWhere({fullName: $(e.target).html()});
 
-            var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
+            var employeeDetailView = new app.Views.EmployeesDetailView({model: selectedEmployee});
 
             employeeDetailView.render();
 
@@ -54,7 +54,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
     });
 
-    timesheetBbApp.Views.EmployeesDetailView = Backbone.View.extend({
+    app.Views.EmployeesDetailView = Backbone.View.extend({
 
         el: $('#employee-detail'),
 
@@ -69,18 +69,18 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             this.model.fetch();
 
             // self.employeeJobs = employee.get('jobs');
-            // self.employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+            // self.employeeJobsCollection = new app.Collections.JobsCollection(employeeJobs);
 
             // if (self.employeeJobs.length == 0) {
             //     console.log('no jobs for self person');
             //     $('#employee-jobs').html('');
             //     self.employeeJobs = '<p>self person has no jobs assigned.</p>';
             // } else {
-            //     self.employeeJobsView = new timesheetBbApp.Views.JobsListView({model: self.employeeJobsCollection});
+            //     self.employeeJobsView = new app.Views.JobsListView({model: self.employeeJobsCollection});
             //     self.employeeJobs = self.employeeJobsView.render().el;
             // }
 
-            // self.jobSearchView = new timesheetBbApp.Views.JobSearchView();
+            // self.jobSearchView = new app.Views.JobSearchView();
 
             // self.jobSearch = self.jobSearchView.render().el;
 
@@ -94,7 +94,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             var employee = self.model;
             console.log(employee);
             var employeeJobs = employee.get('jobs');
-            var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+            var employeeJobsCollection = new app.Collections.JobsCollection(employeeJobs);
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -108,11 +108,11 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
                 console.log('no jobs for this person');
                 $('#employee-jobs').html('');
             } else {
-                employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
+                employeeJobsView = new app.Views.JobsListView({model: employeeJobsCollection});
                 $('#employee-jobs').html(employeeJobsView.render().el);
             }
 
-            var jobSearchView = new timesheetBbApp.Views.JobSearchView();
+            var jobSearchView = new app.Views.JobSearchView();
 
             $('#jobs-search-menu').html(jobSearchView.render().el);
 

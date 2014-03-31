@@ -1,11 +1,11 @@
-/*global timesheetBbApp, Backbone*/
+/*global app, Backbone*/
 
-timesheetBbApp.Models = timesheetBbApp.Models || {};
+app.Models = app.Models || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Models.DateModel = Backbone.Model.extend({
+    app.Models.DateModel = Backbone.Model.extend({
 
         initialize: function() {
         	console.log('date model initialize');
@@ -13,7 +13,7 @@ timesheetBbApp.Models = timesheetBbApp.Models || {};
         },
 
         getEmployees: function() {
-        	return new timesheetBbApp.Collections.EmployeesCollection(this.get('employees'));
+        	return new app.Collections.EmployeesCollection(this.get('employees'));
         }
     });
 

@@ -1,7 +1,7 @@
-/*global timesheetBbApp, $*/
+/*global app, $*/
 
 
-window.timesheetBbApp = {
+window.app = {
     Models: {},
     Collections: {},
     Views: {},
@@ -63,12 +63,16 @@ window.timesheetBbApp = {
             var employees = this.employees;
             this.getDates();
             var dates = this.dates;
+            var data = this.data;
 
             for (var i = 0; i < employees.length; i++) {
                 for (var j = 0; j < dates.length; j++) {
                     employees[i]['date'] = dates[j];
+
+                    data.push(_.clone(employees[i]));
                 }
             }
+
         }
 
         this.getDates = function () {
@@ -78,12 +82,14 @@ window.timesheetBbApp = {
             table.find('td').each(function() {
 
                 var year = $(this).data('year');
-                var month = $(this).data('month');
+                var month = $(this).data('month') + 1;
                 var day = $(this).find('a').html();
 
                 if (year && month && day) {
-                    var date = new Date(year, month, day);
-                    self.dates.push(date);
+                    var yearText = year.toString();
+                    var monthText = month > 9 ? month.toString() : '0' + month;
+                    var dayText = day > 9 ? day.toString() : '0' + day;
+                    self.dates.push(monthText + '/' + dayText + '/' + yearText);
                 }
             })
         }
@@ -96,67 +102,45 @@ window.timesheetBbApp = {
         'use strict';
         console.log('Hello from Backbone!');
 
-        window.employeesCollection = new timesheetBbApp.Collections.EmployeesCollection(timesheetBbApp.store.employees);
-
-        window.jobsCollection = new timesheetBbApp.Collections.JobsCollection(timesheetBbApp.store.jobs);
-
-        window.dateCollection = new timesheetBbApp.Collections.DateCollection(timesheetBbApp.store.dates);
-
-        window.currentCid = 0;
-
         $('#datepicker').datepicker({
             onSelect: function (dateText, inst) {
                 console.log('onSelect');
+                console.log(dateText);
 
-                var dateModel;
+                var employees = app.employeesCollection.where({date: dateText});
 
-                dateModel = dateCollection.findWhere({date: dateText});
+                $('.employees-list').html('');
 
-                var employees = dateModel.getEmployees;
+                _.each(employees, function(employee) {
+                    console.log(employee);
+                    $('.employees-list').append(new app.Views.EmployeesListItemView({model: employee}).render().el);
+                })
 
-                console.log(dateModel);
-
-                console.log(employees);
-                var employeesView = new timesheetBbApp.Views.EmployeesListView({model: employees});
-                // console.log(employeesView.render().el);
-                $('#employees').html(employeesView.render().el);
                 $('#employee-jobs, #jobs-search-menu').html('');
             }
         });
 
+        app.data.generateData();
+
+        app.employeesCollection = new app.Collections.EmployeesCollection(app.data.data);
+
+        app.jobsCollection = new app.Collections.JobsCollection(app.data.jobs);
+
+
+        console.log(app.data.data);
 
     }
 };
 
-// var dates = [];
-
-// function getDates() {
-//     var table = $('.ui-datepicker-calendar');
-//     console.log(this);
-//     table.find('td').each(function() {
-
-//         var year = $(this).data('year');
-//         var month = $(this).data('month');
-//         var day = $(this).find('a').html();
-
-//         if (year && month && day) {
-//             var date = new Date(year, month, day);
-//             dates.push(date);
-//         }
-//     })
-
-//     console.log(dates);
-// }
 
 
 $(document).ready(function () {
     'use strict';
 
-    timesheetBbApp.store = new timesheetBbApp.MemoryStore();
+    app.store = new app.MemoryStore();
 
-    timesheetBbApp.data = new timesheetBbApp.Data();
+    app.data = new app.Data();
 
-    timesheetBbApp.init();
+    app.init();
 
-    timesheetBbApp.data.generateData();
 });

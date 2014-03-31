@@ -1,35 +1,27 @@
-/*global timesheetBbApp, Backbone*/
+/*global app, Backbone*/
 
-timesheetBbApp.Collections = timesheetBbApp.Collections || {};
+app.Collections = app.Collections || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Collections.JobsCollection = Backbone.Collection.extend({
+    app.Collections.JobsCollection = Backbone.Collection.extend({
 
-        model: timesheetBbApp.Models.JobsModel,
+        model: app.Models.JobsModel,
 
         localStorage: new Backbone.LocalStorage("JobsCollectionStorage"),
 
         url: '',
 
         findJobName: function(searchkey) {
-            var jobs = jobsCollection.filter(function (element) {
+            var jobs = app.jobsCollection.filter(function (element) {
                 var jobName = element.get('name');
                 return jobName.toLowerCase().indexOf(searchkey.toLowerCase()) > -1;
             });
-            return new timesheetBbApp.Collections.JobsCollection(jobs);
+            return new app.Collections.JobsCollection(jobs);
         }
 
-     //    sync: function(method, model, options) {
-     //    	console.log('job collection synced!');
-	    //     if (method === "read") {
-	    //         timesheetBbApp.store.findJobName(options.data.name, function (data) {
-	    //             options.success(data);
-	    //         });
-	    //     }
-	    // }
-
     });
+
 
 })();

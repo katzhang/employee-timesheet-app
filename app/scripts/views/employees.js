@@ -1,25 +1,12 @@
-/*global timesheetBbApp, Backbone, JST*/
+/*global app, Backbone, JST*/
 
-timesheetBbApp.Views = timesheetBbApp.Views || {};
+app.Views = app.Views || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Views.EmployeesListView = Backbone.View.extend({
 
-        tagName: 'div',
-
-        className: 'employees-list btn-group-vertical',
-
-        render: function () {
-        	_.each(this.model.models, function (employee) {
-        		this.$el.append(new timesheetBbApp.Views.EmployeesListItemView({model: employee}).render().el);
-        	}, this);
-        	return this;
-        }
-    });
-
-    timesheetBbApp.Views.EmployeesListItemView = Backbone.View.extend({
+    app.Views.EmployeesListItemView = Backbone.View.extend({
 
         template: JST['app/scripts/templates/employees-item.ejs'],
 
@@ -32,6 +19,9 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         },
 
         render: function () {
+
+            this.model.fetch();
+
         	var data = this.model.attributes;
         	this.$el.html(this.template(data));
         	return this;
@@ -41,21 +31,21 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             console.log($(e.target).html());
 
             var selectedEmployee = this.model;
-            console.log(this.model.get('jobs'));
+            console.log(this.model);
 
             $('.employees-list .list-item').removeClass('current');
 
-            var currentBtn = employeesCollection.findWhere({fullName: $(e.target).html()}).get('employeeId');
+            var currentBtn = app.employeesCollection.findWhere({fullName: $(e.target).html()}).get('employeeId');
             $('#' + currentBtn).addClass('current');
 
-            var employeeDetailView = new timesheetBbApp.Views.EmployeesDetailView({model: selectedEmployee});
+            var employeeDetailView = new app.Views.EmployeesDetailView({model: selectedEmployee});
 
             employeeDetailView.render();
         }
 
     });
 
-    timesheetBbApp.Views.EmployeesDetailView = Backbone.View.extend({
+    app.Views.EmployeesDetailView = Backbone.View.extend({
 
         el: $('#employee-detail'),
 
@@ -77,26 +67,26 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         render: function() {
             $('#employee-jobs').html('');
 
-            console.log(this.model.cid);
-
             var self = this;
+
             var employee = self.model;
+
 
             var employeeJobs = employee.get('jobs');
 
             //after saving the job collection will be returned as an array rather than a bb collection
-            var employeeJobsCollection = new timesheetBbApp.Collections.JobsCollection(employeeJobs);
+            var employeeJobsCollection = new app.Collections.JobsCollection(employeeJobs);
             var employeeJobsView;
 
             if (employeeJobs.length == 0) {
                 console.log('no jobs for this person');
                 $('#employee-jobs').html('');
             } else {
-                employeeJobsView = new timesheetBbApp.Views.JobsListView({model: employeeJobsCollection});
+                employeeJobsView = new app.Views.JobsListView({model: employeeJobsCollection});
                 $('#employee-jobs').html(employeeJobsView.render().el);
             }
 
-            var jobSearchView = new timesheetBbApp.Views.JobSearchView();
+            var jobSearchView = new app.Views.JobSearchView();
 
             $('#jobs-search-menu').html(jobSearchView.render().el);
 
@@ -104,7 +94,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
         },
 
         callAddJob: function(e) {
-            var selectedJob = jobsCollection.findWhere({name: $(e.target).html()});
+            var selectedJob = app.jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
@@ -120,7 +110,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
 
         callDeleteJob: function(e) {
             e.preventDefault();
-            var selectedJob = jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
+            var selectedJob = app.jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
             if (self.model.get('id') === curEmployeeId) {
@@ -136,7 +126,7 @@ timesheetBbApp.Views = timesheetBbApp.Views || {};
             console.log('callSetTime');
             console.log(this.model);
             var select = $(e.target);
-            var selectedJob = jobsCollection.findWhere({name: select.next().data('job-name')});
+            var selectedJob = app.jobsCollection.findWhere({name: select.next().data('job-name')});
             var hour = select.children(':selected').html();
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');

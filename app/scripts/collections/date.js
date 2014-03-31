@@ -1,13 +1,13 @@
-/*global timesheetBbApp, Backbone*/
+/*global app, Backbone*/
 
-timesheetBbApp.Collections = timesheetBbApp.Collections || {};
+app.Collections = app.Collections || {};
 
 (function () {
     'use strict';
 
-    timesheetBbApp.Collections.DateCollection = Backbone.Collection.extend({
+    app.Collections.DateCollection = Backbone.Collection.extend({
 
-        model: timesheetBbApp.Models.DateModel,
+        model: app.Models.DateModel,
 
         localStorage: new Backbone.LocalStorage("dateCollectionStorage"),
 
