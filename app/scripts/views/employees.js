@@ -100,12 +100,9 @@ app.Views = app.Views || {};
             if (self.model.get('employeeId') === curEmployeeId) {
 
                 self.model.addJob(selectedJob);
-                // self.model.save();
-                // self.model.fetch();
             } else {
                 return;
             }
-            // self.model.addJob(selectedJob);
         },
 
         callDeleteJob: function(e) {
@@ -113,10 +110,8 @@ app.Views = app.Views || {};
             var selectedJob = app.jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
-            if (self.model.get('id') === curEmployeeId) {
+            if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.deleteJob(selectedJob);
-                // self.model.save();
-                // self.model.fetch();
             } else {
                 return;
             }
@@ -130,7 +125,7 @@ app.Views = app.Views || {};
             var hour = select.children(':selected').html();
             var self = this;
             var curEmployeeId = $('.list-item.current').attr('id');
-            if (self.model.get('id') === curEmployeeId) {
+            if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.setJobHour(selectedJob, hour);
                 // self.model.save();
                 // self.model.fetch();
