@@ -69,6 +69,8 @@ window.app = {
                 for (var j = 0; j < dates.length; j++) {
                     employees[i]['date'] = dates[j];
 
+                    employees[i]['id'] = j * 10 + (i + 1);
+
                     data.push(_.clone(employees[i]));
                 }
             }
