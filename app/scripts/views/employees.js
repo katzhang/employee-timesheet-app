@@ -2,6 +2,19 @@
 
 app.Views = app.Views || {};
 
+// function AppView() {
+ 
+//    this.showView(view) {
+//     if (this.currentView){
+//       this.currentView.remove();
+//     }
+ 
+//     this.currentView = view;
+//     this.currentView.render();
+//   }
+ 
+// }
+
 (function () {
     'use strict';
 
@@ -40,7 +53,19 @@ app.Views = app.Views || {};
 
             var employeeDetailView = new app.Views.EmployeesDetailView({model: selectedEmployee});
 
-            employeeDetailView.render();
+            // employeeDetailView.render();
+            this.getView(employeeDetailView);
+        },
+
+        getView: function(view) {
+            console.log('get view starts');
+            if (window.currentView){
+                console.log('remove view');
+                window.currentView.undelegateEvents();
+            }
+         
+            window.currentView = view;
+            window.currentView.render();
         }
 
     });
@@ -65,6 +90,7 @@ app.Views = app.Views || {};
         },
 
         render: function() {
+            console.log('employee detail renders');
             $('#employee-jobs').html('');
 
             var self = this;

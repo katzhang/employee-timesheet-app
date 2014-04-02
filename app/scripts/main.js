@@ -114,7 +114,6 @@ window.app = {
                 $('.employees-list').html('');
 
                 _.each(employees, function(employee) {
-                    console.log(employee);
                     $('.employees-list').append(new app.Views.EmployeesListItemView({model: employee}).render().el);
                 })
 
