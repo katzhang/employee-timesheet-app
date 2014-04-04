@@ -40,11 +40,11 @@ window.app = {
     Data: function() {
 
         this.employees = [
-            {employeeId: '1', firstName: "Ann", lastName : "King", fullName: 'Ann King'},
-            {employeeId: '2', firstName: "Ben", lastName : "White", fullName: 'Ben White'},
-            {employeeId: '3', firstName: "Chris", lastName : "Smith", fullName: 'Chris Smith'},
-            {employeeId: '4', firstName: "Damon", lastName : "Albarn", fullName: 'Damon Albarn'},
-            {employeeId: '5', firstName: "Emma", lastName : "Woods", fullName: 'Emma Woods'}
+            {employeeId: '1', firstName: "Ann", lastName : "King", fullName: 'Ann King', title: 'Senior Developer'},
+            {employeeId: '2', firstName: "Ben", lastName : "White", fullName: 'Ben White', title: 'Junior Developer'},
+            {employeeId: '3', firstName: "Chris", lastName : "Smith", fullName: 'Chris Smith', title: 'Developer'},
+            {employeeId: '4', firstName: "Damon", lastName : "Albarn", fullName: 'Damon Albarn', title: 'Flash Developer'},
+            {employeeId: '5', firstName: "Emma", lastName : "Woods", fullName: 'Emma Woods', title: 'Developer'}
 
         ]
 
