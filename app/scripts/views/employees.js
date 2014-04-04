@@ -2,19 +2,6 @@
 
 app.Views = app.Views || {};
 
-// function AppView() {
- 
-//    this.showView(view) {
-//     if (this.currentView){
-//       this.currentView.remove();
-//     }
- 
-//     this.currentView = view;
-//     this.currentView.render();
-//   }
- 
-// }
-
 (function () {
     'use strict';
 

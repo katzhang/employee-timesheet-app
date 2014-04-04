@@ -6,14 +6,17 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>timesheet bb app</title>
+        <title>Employee Timesheet - A Backbone Web App</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery.ui.datepicker.css">
+        <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300,800' rel='stylesheet' type='text/css'>
+        
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -26,15 +29,15 @@
 
         <div class="container-fluid">
             <div class="row">
-                <h3 class="text-muted">timesheet bb app</h3>
-                <div class="col-sm-3 col-md-3 columns" id="calendar">
-                    <div id="datepicker"></div>
-                </div>
                 <section class="content">
-                    <div class="col-sm-3 col-md-1 columns btn-group-vertical" id="employees">
+                    <h3 class="text-muted page-header">Employee Timesheet</h3>
+                    <div class="col-sm-3 col-md-3 columns" id="calendar">
+                        <div id="datepicker"></div>
+                    </div>
+                    <div class="col-sm-3 col-md-3 columns btn-group-vertical" id="employees">
                         <div class="employees-list btn-group-vertical"></div>
                     </div>
-                    <div class="col-sm-6 col-md-8 columns" id="employee-detail">
+                    <div class="col-sm-6 col-md-6 columns" id="employee-detail">
                         <section id="employee-jobs"></section>
                         <section id="jobs-search-menu"></section>
                     </div>
