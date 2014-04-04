@@ -110,8 +110,9 @@ window.app = {
                 console.log(dateText);
 
                 var employees = app.employeesCollection.where({date: dateText});
+                var header = '<h5 class="employees-list-header">Choose an employee: </h5>';
 
-                $('.employees-list').html('');
+                $('.employees-list').html(header);
 
                 _.each(employees, function(employee) {
                     $('.employees-list').append(new app.Views.EmployeesListItemView({model: employee}).render().el);
