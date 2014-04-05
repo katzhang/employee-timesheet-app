@@ -125,6 +125,11 @@ body {
     color: #fff;
 }
 
+@-webkit-keyframes rollIn {
+      0%   { opacity: 0; margin-left: 200px; }
+      100% { opacity: 1; margin-left: 0; }
+}
+
 /* Employees List */
 #employees {
     background: #efefef;
@@ -132,6 +137,10 @@ body {
 
 .employees-list {
     width: 100%;
+}
+
+.employees-list button, .employees-list h5 {
+    -webkit-animation: rollIn .2s 0 ease-out;
 }
 
 .titles {
@@ -193,6 +202,10 @@ body {
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+#employee-jobs ul,  #job-search-menu div {
+    -webkit-animation: rollIn .2s 0 ease-out;
 }
 
 .search-icon {
