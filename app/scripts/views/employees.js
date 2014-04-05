@@ -15,7 +15,7 @@ app.Views = app.Views || {};
         className: 'btn btn-default',
 
         events: {
-        	'click .list-item': 	'getEmployeeDetail'
+        	'click': 	'getEmployeeDetail'
         },
 
         render: function () {
@@ -28,15 +28,17 @@ app.Views = app.Views || {};
         },
 
         getEmployeeDetail: function(e) {
-            console.log($(e.target).html());
+            var target = $(e.currentTarget);
 
             var selectedEmployee = this.model;
             console.log(this.model);
+            var fullNameText = target.find('.list-item').html();
+            console.log(fullNameText);
 
-            $('.employees-list .list-item').removeClass('current');
+            $('.employees-list .list-item').parents('button').removeClass('current');
 
-            var currentBtn = app.employeesCollection.findWhere({fullName: $(e.target).html()}).get('employeeId');
-            $('#' + currentBtn).addClass('current');
+            var currentBtn = app.employeesCollection.findWhere({fullName: fullNameText}).get('employeeId');
+            $('#' + currentBtn).parents('button').addClass('current');
 
             var employeeDetailView = new app.Views.EmployeesDetailView({model: selectedEmployee});
 
@@ -109,7 +111,7 @@ app.Views = app.Views || {};
         callAddJob: function(e) {
             var selectedJob = app.jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
-            var curEmployeeId = $('.list-item.current').attr('id');
+            var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
 
                 self.model.addJob(selectedJob);
@@ -122,7 +124,7 @@ app.Views = app.Views || {};
             e.preventDefault();
             var selectedJob = app.jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
             var self = this;
-            var curEmployeeId = $('.list-item.current').attr('id');
+            var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.deleteJob(selectedJob);
             } else {
@@ -137,7 +139,7 @@ app.Views = app.Views || {};
             var selectedJob = app.jobsCollection.findWhere({name: select.next().data('job-name')});
             var hour = select.children(':selected').html();
             var self = this;
-            var curEmployeeId = $('.list-item.current').attr('id');
+            var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.setJobHour(selectedJob, hour);
                 // self.model.save();

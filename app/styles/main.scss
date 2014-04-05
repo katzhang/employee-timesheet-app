@@ -33,14 +33,16 @@ body {
 .page-header {
     height: 10%;
     margin: 0;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-top: 20px;
+    padding-left: 40px;
+}
+
+.page-header h3 {
+    margin-bottom: 5px;
 }
 
 /* Calendar */
 #calendar {
-    background: red;
+    background: #efefef;
 }
 
 .ui-datepicker {
@@ -78,13 +80,13 @@ body {
 }
 
 .ui-datepicker .ui-datepicker-prev:hover {
-    left: 2px;
-    top: 2px;
+    left: 15px;
+    top: 20px;
 }
 
 .ui-datepicker .ui-datepicker-next:hover {
-    right: 2px;
-    top: 2px;
+    right: 15px;
+    top: 20px;
 }
 
 .ui-datepicker .ui-datepicker-prev span,
@@ -125,7 +127,7 @@ body {
 
 /* Employees List */
 #employees {
-    background: yellow;
+    background: #efefef;
 }
 
 .employees-list {
@@ -173,14 +175,18 @@ body {
 }
 
 
-.employees-list .list-item.current {
-    color: red;
+.employees-list .current {
+    background: #ff8989;
+}
+
+.employees-list .current a {
+    color: #fff;
 }
 
 
 /* Individual Employee Detail */
 #employee-detail {
-    background: green;
+    background: #efefef;
 }
 
 #jobs-search-menu {
@@ -189,11 +195,38 @@ body {
     width: 100%;
 }
 
+.search-icon {
+    background: transparent url('../images/search.png') no-repeat 0 0;
+    background-size: 100%;
+    content: '';
+    display: inline-block;
+    height: 32px;
+    vertical-align: middle;
+    width: 34px;
+
+}
+
+#searchText {
+    border: none;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.dropdown-menu {
+    border: none;
+    border-radius: 0;
+}
+
+.dropdown-menu > li > a {
+    color: #9d9d9d;
+}
+
 #employee-jobs {
     margin-top: 40px;
 }
 
 #employee-jobs ul {
+    background: #fff;
     border-collapse: collapse;
     display: table;
     list-style: none;
@@ -202,12 +235,35 @@ body {
 }
 
 #employee-jobs ul li {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #9d9d9d;
     display: table-row;
+    line-height: 40px;
 }
 
-.delete-job {
+.jobs-list .list-item {
+    padding-left: 10px;
+}
+
+.jobs-list select {
     float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+
+.delete-job {
+    background: #4cd9c0;
+    float: right;
+    color: #fff;
+    height: 100%;
+    text-align: center;
+    width: 40px;
+}
+
+.delete-job:hover {
+    background: #ff8989;
+    color: #fff;
+    text-decoration: none;
 }
 
 .dropdown-menu .delete-job, .dropdown-menu select {
