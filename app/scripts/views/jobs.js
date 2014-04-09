@@ -37,6 +37,10 @@ app.Views = app.Views || {};
 	    initialize:function () {
 	        this.model.on("change", this.render, this);
 	        this.model.on("destroy", this.close, this);
+
+	        //set data attributes
+	        var jobName = this.model.get('name');
+	        this.$el.attr('data-job-name', jobName);
 	    },
 
         render: function () {
@@ -82,13 +86,6 @@ app.Views = app.Views || {};
 	            $('.dropdown').addClass('open');
 	        });
 	    },
-
-	    // updateResults: function(cxt, jobs) {
-	    // 	console.log('updateResults:' + jobs);
-	    // 	cxt.searchResults = jobs;
-	    // 	cxt.searchresultsView = new app.Views.JobsListView({ model: cxt.searchResults, className: 'dropdown-menu'});
-	    // 	$('.navbar-search', cxt.el).append(cxt.searchresultsView.render().el);
-	    // },
 
 	    onkeypress: function (event) {
 	        if (event.keyCode === 13) { // enter key pressed

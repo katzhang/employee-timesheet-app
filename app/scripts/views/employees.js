@@ -108,45 +108,43 @@ app.Views = app.Views || {};
             return this;
         },
 
+        getJob: function(target) {
+            var jobName = target.parents('li').attr('data-job-name');
+            console.log(jobName);
+            return app.jobsCollection.findWhere({name: jobName});
+        },
+
         callAddJob: function(e) {
-            var selectedJob = app.jobsCollection.findWhere({name: $(e.target).html()});
             var self = this;
+            var selectedJob = self.getJob($(e.target));
             var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
 
                 self.model.addJob(selectedJob);
-            } else {
-                return;
             }
         },
 
         callDeleteJob: function(e) {
             e.preventDefault();
-            var selectedJob = app.jobsCollection.findWhere({name: $(e.target).parent().data('job-name')});
             var self = this;
+            var selectedJob = self.getJob($(e.target));
+            console.log(selectedJob);
             var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.deleteJob(selectedJob);
-            } else {
-                return;
             }
         },
 
         callSetTime: function(e) {
             console.log('callSetTime');
-            console.log(this.model);
+            var self = this;
             var select = $(e.target);
-            console.log(select);
-            var selectedJob = app.jobsCollection.findWhere({name: select.siblings('.delete-job').data('job-name')});
+            var selectedJob = self.getJob($(e.target));
             var hour = select.children(':selected').html();
             var self = this;
             var curEmployeeId = $('.current .list-item').attr('id');
             if (self.model.get('employeeId') === curEmployeeId) {
                 self.model.setJobHour(selectedJob, hour);
-                // self.model.save();
-                // self.model.fetch();
-            } else {
-                return;
             }
         }
 
