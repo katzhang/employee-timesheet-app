@@ -7,36 +7,6 @@ window.app = {
     Views: {},
     Routers: {},
 
-    MemoryStore: function (successCallback, errorCallback) {
-        this.findByName = function (searchKey, callback) {
-            var employees = this.employees.filter(function (element) {
-                var fullName = element.firstName + " " + element.lastName;
-                return fullName.toLowerCase().indexOf(searchKey.toLowerCase() > -1);
-            });
-            callLater(callback, employees);
-        }
-
-        this.findJobName = function (searchKey, callback) {
-            var jobs = this.jobs.filter(function (element) {
-                var jobName = element.name;
-                return jobName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
-            });
-            callLater(callback, jobs);
-        }
-
-        var callLater = function (callback, data) {
-            if (callback) {
-                setTimeout(function () {
-                    callback(data);
-                });
-            }
-        }
-
-        callLater(successCallback);
-
-
-    },
-
     Data: function() {
 
         this.employees = [
@@ -59,6 +29,9 @@ window.app = {
 
         this.data = []
 
+        //Merge employees array and dates array into one data array
+        //Each date should have a list of employees
+        //Also give each record an id
         this.generateData = function() {
             var employees = this.employees;
             this.getDates();
@@ -77,6 +50,7 @@ window.app = {
 
         }
 
+        //Iterate over datepicker widget and store dates as strings in dates array
         this.getDates = function () {
             var table = $('.ui-datepicker-calendar');
             var self = this;
@@ -138,8 +112,6 @@ window.app = {
 
 $(document).ready(function () {
     'use strict';
-
-    app.store = new app.MemoryStore();
 
     app.data = new app.Data();
 
